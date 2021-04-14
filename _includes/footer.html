@@ -1,0 +1,44 @@
+{%- assign social = site.minima.social_links -%}
+<footer>
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+              <ul class="list-inline text-center">
+                {%- if social.twitter -%}
+                <li class="list-inline-item">
+                      <a rel="me" href="https://twitter.com/{{ social.twitter | cgi_escape | escape }}" title="{{ social.twitter | escape }}">
+                          <span class="fa-stack fa-lg">
+                              <i class="fas fa-circle fa-stack-2x"></i>
+                              <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                          </span>
+                      </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if social.github -%}
+                  <li class="list-inline-item">
+                    <a rel="me" href="https://github.com/{{ social.github | cgi_escape | escape }}" title="{{ social.github | escape }}">
+                          <span class="fa-stack fa-lg">
+                              <i class="fas fa-circle fa-stack-2x"></i>
+                              <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                          </span>
+                      </a>
+                  </li>
+                  {%- endif -%}
+                  {%- if social.linkedin -%}
+                  <li class="list-inline-item">
+                    <a rel="me" href="https://www.linkedin.com/in/{{ social.linkedin | cgi_escape | escape }}" title="{{ social.linkedin | escape }}">
+                        <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                {%- endif -%}
+              </ul>
+              <p class="copyright text-muted"> 
+                © 2021 Martin Jalaf, Site built with <a href="https://github.com/jekyll">Jekyll</a> .
+               </p>
+          </div>
+      </div>
+  </div>
+</footer>
