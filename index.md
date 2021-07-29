@@ -5,7 +5,7 @@ layout: home
 
 On this site you can find information about some of the personal projects that I am working on.
 
- Internal Projects 
+ Projects 
 * 		DredPho
 * 		DredBot
 * 		DredPi
