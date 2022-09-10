@@ -1,6 +1,0 @@
-appd:
-  appKey: DEMO-MARTIN
-env:
-  space: development
-envconfig:
-  domainRootHostName: demo.com
