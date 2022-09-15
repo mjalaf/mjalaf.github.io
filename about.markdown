@@ -23,7 +23,11 @@ En noviembre del 2012 comencé a trabajar en Microsoft Argentina como Ingeniero 
 Desde el 2016 me desempeño como Arquitecto de Industria trabajando para todas las Américas, mayormente con clientes de Estados Unidos, mi rol es bastante variado y tiene muchas facetas, por un lado, me encargo de participar en preventas, por otro lado, participo en proyectos definiendo la arquitectura o siendo parte de los equipos de arquitectura, en muchos proyectos desarrollo componentes fundacionales y también suelo ser asesor tecnológico (SME). 
 
 En cuento a otros aspectos de mi vida... Soy papa de Mateo, fotografo entusiasta, trail runner amateur y disfruto mucho mirando casí todo tipo de deportes, en especial el Futbol, Rugby y F1.
- 
+
+## Social
+
 [Photo taking by Martin](https://500px.com/p/mjalaf)
 
 [Linkedin](https://www.linkedin.com/in/mjalaf/)
+
+To get a hold of me, you can email me at [infodredgo@gmail.com](mailto:infodredgo@gmail.com)
