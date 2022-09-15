@@ -6,17 +6,20 @@ description: Helping people and companies to get better result with technologies
 show_excerpts: false
 baseurl: ''
 url: 'https://mjalaf.github.io'
+google_analytics: GTM-M4LH8GS
 disqus:
   shortname: mjalaf
-markdown: kramdown
+
 minima:
   date_format: '%b %-d, %Y'
   skin: dark
+  markdown: kramdown
   social_links:
     twitter: mjalaf
     github: mjalaf
+    linkedin: mjalaf
     500px: mjalaf
-    rss: true
+    rss: true    
 plugins:
   - jekyll-feeds
   - jekyll-seo-tag
