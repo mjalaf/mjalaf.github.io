@@ -6,10 +6,10 @@ In the first [part](https://mjalaf.github.io/2022/09/14/cosmos-db-partitions.htm
 
 On this Post the focus will be on Logical Partitions, again I will try to explain typical questions that I receive.
 
-What is a Logical Partition? 
-What is a partition Key?
-What is the Max Size?
-Why is the impact on Physical Partition?
+* What is a Logical Partition? 
+* What is a partition Key?
+* What is the Max Size?
+* Why is the impact on Physical Partition?
 
 To explain the Logical partition, I will take as example a real time streaming scenario
 ## Scenario
