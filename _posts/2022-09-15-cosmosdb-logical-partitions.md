@@ -101,9 +101,9 @@ Problems deciding "**plantId**" as partition Key
 	- First and most obvious issue is the maximum number of Logical Partitions, if there is just 15 Plants, there will be only 15 partitions
 	- Second, the total maximum size of each Logical partition is 20 GB, this implies the maximum size will be 15 partition x 20 GB = 300 GB vs 2 TB that we estimated to store for 30 days. 
 	
-**Conclusion: **  PlantId is not a good choice for Partition Key evaluating our conditions.
+**Conclusion:**  PlantId is not a good choice for Partition Key evaluating our conditions.
 
-**Alternative 2: ** Suppose that we decide the plantId + CurrentDate  (Compose Partition Key) as the Partition key candidate 
+**Alternative 2:**  Suppose that we decide the plantId + CurrentDate  (Compose Partition Key) as the Partition key candidate 
 
 In this scenario, we can create a new field which contains the combination of the PlantID + the current day 
 
@@ -131,9 +131,9 @@ This situation is called Hot partition and it can be observed on insights metric
 
 ![Logical Parition - Hot Partition](/assets/img/CosmosDBPost/LogicPart-3.jpg)
 
-**Conclusion: **  PlantId + CurrentDate is a better choice for Partition Key but it is not ideal.
+**Conclusion:**  PlantId + CurrentDate is a better choice for Partition Key but it is not ideal.
 
-### How do we know the size of my partition key?
+### How do we know the partition key size?
 There is a log analytics query provided by Microsoft that can be used to check the Partition Key Size 
 
 ```
