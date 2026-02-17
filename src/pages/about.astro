@@ -1,0 +1,183 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const faqs = [
+	{
+		question: "What technologies do you work with?",
+		answer:
+			"I started with Java and I still consider myself a Java lover. Over the years I expanded into .NET, Azure, cloud-native architectures, identity (Microsoft Entra), APIs, and distributed systems. I enjoy designing pragmatic architectures that actually survive production.",
+	},
+	{
+		question: "What is your current role?",
+		answer:
+			"I'm a solution Architect at Microsoft. I worked for many years primarily with U.S. customers, and more recently I’ve been focusing strongly on LATAM customers, helping organizations modernize platforms and move confidently to the cloud.",
+	},
+	{
+		question: "Are you still hands-on?",
+		answer:
+			"Yes. Architecture without code feels incomplete to me. I enjoy staying close to implementation, exploring AI-driven workflows, and continuously learning new technologies.",
+	},
+	{
+		question: "What motivates you?",
+		answer:
+			"I genuinely love technological challenges. I’m passionate about technology, curious by nature, and I’m always trying to learn something new.",
+	},
+	{
+		question: "Which languages do you speak?",
+		answer:
+			"Spanish (native), English (advanced), Portuguese (intermediate).",
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`About - ${SITE_TITLE}`} description="About Martin Jalaf - Solution Architect" />
+	</head>
+	<body>
+		<Header />
+		<main role="main" class="max-w-6xl mx-auto">
+
+			<!-- Hero Section -->
+			<section class="flex flex-col items-start py-16 max-xl:px-4 max-lg:px-4 max-sm:px-4 max-sm:items-center max-sm:text-center">
+				<h1 class="text-4xl font-bold tracking-tight text-zinc-300 max-sm:text-2xl">
+					About <span class="text-blue-500">Martin Jalaf</span>
+				</h1>
+				<p class="mt-6 text-lg text-zinc-400 max-w-2xl max-sm:mt-3 max-sm:text-base">
+					Argentinian living in Chile. Solution Architect at Microsoft.
+					Java lover. Curious mind. Always learning.
+					People call me "Tincho" or sometimes "Marto".
+				</p>
+
+				<div class="flex flex-row mt-6 gap-4 max-sm:justify-center">
+					<a
+						href="https://github.com/mjalaf"
+						target="_blank"
+						class="flex flex-row w-fit rounded-lg border px-5 py-2 transition-colors duration-300 hover:bg-blue-500 hover:text-white border-blue-500 text-blue-500 no-underline max-sm:px-3 max-sm:text-sm"
+					>
+						GitHub
+					</a>
+					<a
+						href="https://www.linkedin.com/in/mjalaf"
+						target="_blank"
+						class="flex flex-row w-fit rounded-lg border px-5 py-2 transition-colors duration-300 hover:bg-blue-500 hover:text-white border-blue-500 text-blue-500 no-underline max-sm:px-3 max-sm:text-sm"
+					>
+						LinkedIn
+					</a>
+				</div>
+			</section>
+
+			<!-- English Bio -->
+			<section class="max-w-4xl pt-5 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
+				<h2 class="text-2xl font-semibold text-white">EN Career</h2>
+
+				<p class="mt-4 text-slate-400">
+					I’ve been in tech since <strong class="text-white">2005</strong>.
+					I started with <strong class="text-white">Java</strong>, and I never really left it.
+					I still consider myself a Java lover — it shaped how I think about
+					object-oriented design, clean code, and long-term maintainability.
+				</p>
+
+				<p class="mt-4 text-slate-400">
+					Over time, I expanded into architecture, cloud, and distributed systems.
+					I joined <strong class="text-white">Microsoft</strong> in <strong class="text-white">2012</strong>
+					and spent years working deeply with production environments —
+					debugging dumps, analyzing traces, and solving complex real-world issues.
+					That experience gave me a strong respect for simplicity and resilience.
+				</p>
+
+				<p class="mt-4 text-slate-400">
+					Since <strong class="text-white">2016</strong>, I’ve been working as an
+					<strong class="text-white">Solution Architect</strong>.
+					For many years, I worked primarily with U.S. customers across the Americas.
+					More recently, I’ve been increasingly focused on LATAM customers,
+					supporting modernization, cloud adoption, and platform evolution.
+				</p>
+
+				<p class="mt-4 text-slate-400">
+					I genuinely love technological challenges. I’m passionate about technology,
+					and I’m always trying to learn something new — whether it’s AI agents,
+					cloud architecture patterns, or developer productivity improvements.
+				</p>
+
+				<p class="mt-4 text-slate-400">
+					Architecture without curiosity becomes static.
+					I prefer to keep building, experimenting, and evolving.
+				</p>
+			</section>
+
+			<section class="max-w-4xl pt-10 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
+				<h2 class="text-2xl font-semibold text-white">Personal</h2>
+				<p class="mt-4 text-slate-400">
+					I’m the father of Mateo and Sofia.
+					Outside of tech, I’m an enthusiastic photographer, trail runner,
+					and sports fan (football/soccer, rugby, and F1).
+				</p>
+			</section>
+
+			<!-- Spanish Bio -->
+			<section class="max-w-4xl pt-10 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
+				<h2 class="text-2xl font-semibold text-white">🇪🇸 Carrera</h2>
+
+				<p class="mt-4 text-slate-400">
+					Soy Martín, argentino viviendo en Chile.
+					Trabajo en tecnología desde el año <strong class="text-white">2005</strong>.
+					Comencé con <strong class="text-white">Java</strong>, tecnología que sigo amando
+					y utilizando como base conceptual para muchas decisiones de arquitectura.
+				</p>
+
+				<p class="mt-4 text-slate-400">
+					Me sumé a <strong class="text-white">Microsoft</strong> en <strong class="text-white">2012</strong>,
+					donde trabajé durante años en escenarios productivos complejos,
+					resolviendo incidentes y fortaleciendo mis habilidades de troubleshooting.
+				</p>
+
+				<p class="mt-4 text-slate-400">
+					Desde <strong class="text-white">2016</strong> me desempeño como
+					<strong class="text-white">Arquitecto de Soluciones</strong>.
+					Durante muchos años trabajé principalmente con clientes de Estados Unidos,
+					y actualmente estoy cada vez más enfocado en clientes de LATAM,
+					apoyando procesos de modernización y adopción de nube.
+				</p>
+
+				<p class="mt-4 text-slate-400">
+					Me apasionan los desafíos tecnológicos.
+					Siempre estoy intentando aprender algo nuevo.
+				</p>
+			</section>
+
+			<section class="max-w-4xl pt-10 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
+				<h2 class="text-2xl font-semibold text-white">Personal</h2>
+				<p class="mt-4 text-slate-400">
+					Soy papá de Mateo y Sofia.
+					Me gusta la fotografía, el trail running y mirar deportes,
+					especialmente Fútbol, Rugby y F1.
+				</p>
+			</section>
+
+			<!-- FAQs -->
+			<section class="max-w-4xl py-15 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
+				<header class="mb-10">
+					<h2 class="text-2xl font-semibold text-white">Frequently Asked Questions</h2>
+				</header>
+				<div class="space-y-4">
+					{faqs.map(({ question, answer }) => (
+						<details class="group rounded-xl border border-slate-800 bg-slate-900 p-4">
+							<summary class="flex cursor-pointer list-none items-center justify-between">
+								<h3 class="text-lg font-medium text-white">{question}</h3>
+								<span class="text-slate-400 transition group-open:rotate-180">▼</span>
+							</summary>
+							<p class="mt-4 text-slate-400">{answer}</p>
+						</details>
+					))}
+				</div>
+			</section>
+
+		</main>
+		<Footer />
+	</body>
+</html>
