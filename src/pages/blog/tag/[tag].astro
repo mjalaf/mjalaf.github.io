@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_TITLE } from '../../../consts';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	const tags = new Set<string>();
+	posts.forEach((post) => {
+		post.data.tags?.forEach((tag) => tags.add(tag));
+	});
+
+	return [...tags].map((tag) => ({
+		params: { tag },
+		props: { tag },
+	}));
+}
+
+const { tag } = Astro.props;
+
+const posts = (await getCollection('blog'))
+	.filter((post) => post.data.tags?.includes(tag))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get all tags for the sidebar
+const allPosts = await getCollection('blog');
+const allTags = new Map<string, number>();
+allPosts.forEach((post) => {
+	post.data.tags?.forEach((t) => {
+		allTags.set(t, (allTags.get(t) || 0) + 1);
+	});
+});
+const sortedTags = [...allTags.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`#${tag} - ${SITE_TITLE}`} description={`Posts tagged with #${tag}`} />
+	</head>
+	<body>
+		<Header />
+		<main role="main" class="max-w-6xl mx-auto">
+			<!-- Header -->
+			<section class="flex flex-col items-start py-16 max-xl:px-4 max-lg:px-4 max-sm:px-4 max-sm:items-center max-sm:text-center">
+				<h1 class="text-4xl font-bold tracking-tight text-zinc-300 max-sm:text-2xl">
+					Posts tagged <span class="text-blue-500">#{tag}</span>
+				</h1>
+				<p class="mt-4 text-lg text-zinc-400">
+					{posts.length} article{posts.length !== 1 ? 's' : ''}
+				</p>
+			</section>
+
+			<!-- All Tags -->
+			<section class="max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4 pb-8">
+				<div class="flex flex-wrap gap-2">
+					{sortedTags.map(([t, count]) => (
+						<a
+							href={`/blog/tag/${t}/`}
+							class:list={[
+								'rounded-full px-3 py-1 text-sm no-underline transition',
+								t === tag
+									? 'bg-blue-500 text-white'
+									: 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700',
+							]}
+						>
+							#{t} <span class="text-zinc-500 ml-1">({count})</span>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<!-- Post Grid -->
+			<section class="mx-auto max-w-7xl py-10 pt-5 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4 pb-16">
+				<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+					{
+						posts.map((post) => (
+							<article class="group relative w-full rounded-2xl bg-zinc-900/60 p-6 transition hover:bg-zinc-900/80 hover:shadow-xl hover:shadow-black/30">
+								<a href={`/blog/${post.id}/`} class="no-underline" aria-label={post.data.title}>
+									<div class="relative z-20">
+										<div class="mb-3 flex items-center gap-3 text-sm text-zinc-400">
+											<FormattedDate date={post.data.pubDate} />
+											{post.data.tags && post.data.tags.length > 0 && (
+												<span class="flex gap-2">
+													{post.data.tags.slice(0, 3).map((t) => (
+														<span class:list={[
+															'rounded-full px-2 py-0.5 text-xs',
+															t === tag ? 'bg-blue-500/20 text-blue-400' : 'bg-zinc-800 text-zinc-300',
+														]}>#{t}</span>
+													))}
+												</span>
+											)}
+										</div>
+										<h2 class="text-xl font-semibold leading-snug text-zinc-100 transition group-hover:text-violet-400">
+											{post.data.title}
+										</h2>
+										{post.data.description && (
+											<p class="mt-3 text-sm leading-relaxed text-zinc-400">
+												{post.data.description.slice(0, 100)}{post.data.description.length > 100 ? "..." : ""}
+											</p>
+										)}
+									</div>
+								</a>
+							</article>
+						))
+					}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

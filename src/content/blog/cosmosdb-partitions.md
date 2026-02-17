@@ -2,6 +2,11 @@
 title: 'Part 1 - CosmosDB Partitions Deep Dive'
 description: 'Deep dive into physical partitions, logical partitions, and documents in Azure Cosmos DB. Understanding RU distribution and partition creation.'
 pubDate: 'Sep 14 2022'
+tags:
+  - english
+  - azure
+  - cosmosdb
+  - architecture
 ---
 
 Partitions in Cosmos DB is a concept that I used to explain and discuss at least twice a month with my customers.

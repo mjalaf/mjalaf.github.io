@@ -2,6 +2,12 @@
 title: 'Part 2 - CosmosDB Logical Partitions and the Impact on Partition Key Choice'
 description: 'Choosing the right partition key in Cosmos DB. A real-world IoT streaming scenario analyzing different partition key strategies.'
 pubDate: 'Sep 15 2022'
+tags:
+  - english
+  - azure
+  - cosmosdb
+  - architecture
+  - iot
 ---
 
 In the first [part](/blog/cosmosdb-partitions/) of this series, I was explaining Physical Partitions, the theoretical maximum, and the reason to create one or more partitions. I also explained the RUs distribution and some metrics.

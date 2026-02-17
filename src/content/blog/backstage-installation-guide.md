@@ -2,6 +2,11 @@
 title: 'Backstage on Linux: Step-by-step Install + Catalog Components + Troubleshooting'
 description: 'A practical guide to install Backstage on Ubuntu/Linux, define catalog components, and fix common issues.'
 pubDate: 'Dec 11 2025'
+tags:
+  - english
+  - backstage
+  - linux
+  - devops
 ---
 
 # Backstage on Linux (Ubuntu): Install Guide + Component Definitions + Troubleshooting

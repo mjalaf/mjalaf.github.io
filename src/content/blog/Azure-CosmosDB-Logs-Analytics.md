@@ -2,6 +2,11 @@
 title: 'Azure Logs Analytics for CosmosDB'
 description: 'How to enable and use Azure Log Analytics for Cosmos DB. Diagnostic settings, KQL queries, and full-text query logging.'
 pubDate: 'Sep 17 2022'
+tags:
+  - english
+  - azure
+  - cosmosdb
+  - monitoring
 ---
 
 Azure CosmosDB allows you to enable and store logs in Log Analytics, which is helpful for troubleshooting and performance analysis.

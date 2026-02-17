@@ -2,6 +2,10 @@
 title: 'Big-O en Español Parte 2'
 description: 'Expresiones cuadráticas y cómo se comportan las funciones elevadas a cualquier potencia en la notación Big-O.'
 pubDate: 'Jun 24 2022'
+tags:
+  - español
+  - big-o
+  - algorithms
 ---
 
 En el post previo [Big-O en Español Parte 1](https://mjalaf.github.io/2022/06/17/big-o.html), revisamos la notación de Big-O para expresiones lineales y constantes. En este post vamos a explorar las expresiones **cuadráticas** y cómo se comportan las funciones elevadas a cualquier potencia.

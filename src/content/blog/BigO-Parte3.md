@@ -2,6 +2,10 @@
 title: 'Big-O en Español Parte 3'
 description: 'Expresiones logarítmicas, exponenciales y factoriales en la notación Big-O con ejemplos prácticos.'
 pubDate: 'Jun 30 2022'
+tags:
+  - español
+  - big-o
+  - algorithms
 ---
 
 Este es el tercer post de una serie de 4 sobre la notación Big-O. En este artículo, exploraremos las **expresiones logarítmicas**, **exponenciales** y **factoriales**.

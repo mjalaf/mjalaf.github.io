@@ -2,6 +2,10 @@
 title: 'Big-O en Español Parte 5 - Consideraciones Avanzadas'
 description: 'Temas avanzados de Big-O: complejidad espacial, amortizada, y consideraciones prácticas para optimizar algoritmos.'
 pubDate: 'Jul 10 2022'
+tags:
+  - español
+  - big-o
+  - algorithms
 ---
 
 En los artículos anteriores sobre la notación Big-O, exploramos diversas complejidades, desde constantes y lineales hasta factoriales y exponenciales. Sin embargo, hay muchas otras consideraciones importantes cuando se trata de analizar y optimizar algoritmos.

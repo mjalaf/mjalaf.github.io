@@ -2,6 +2,10 @@
 title: 'Introducción a la Serie sobre la Notación Big-O'
 description: 'Una serie de posts sobre la notación Big-O, desde conceptos básicos hasta casos avanzados con ejemplos prácticos.'
 pubDate: 'Jun 15 2022'
+tags:
+  - español
+  - big-o
+  - algorithms
 ---
 
 La notación Big-O es una herramienta fundamental en el desarrollo de software, ya que nos permite analizar y comprender la eficiencia de los algoritmos que implementamos. Más allá de ser un concepto teórico, Big-O juega un papel crucial al momento de optimizar tiempos de procesamiento y garantizar la escalabilidad de nuestras aplicaciones.

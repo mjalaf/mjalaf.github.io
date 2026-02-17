@@ -2,6 +2,11 @@
 title: 'Entendiendo Big-O en Español - Parte 1'
 description: 'Exploramos las notaciones O(n) lineal y O(1) constante con ejemplos prácticos en JavaScript.'
 pubDate: 'Jun 17 2022'
+tags:
+  - español
+  - big-o
+  - algorithms
+  - javascript
 ---
 
 La notación Big-O es una herramienta fundamental para evaluar la eficiencia de los algoritmos. Aunque puede sonar compleja, es bastante sencilla de entender. Su propósito principal es medir la complejidad computacional y cómo los algoritmos se comportan a medida que aumenta el tamaño de los datos.

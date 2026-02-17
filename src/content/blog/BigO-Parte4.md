@@ -2,6 +2,10 @@
 title: 'Big-O en Español Parte 4'
 description: 'Análisis del rendimiento de cada tipo de expresión Big-O y cómo combinar diferentes complejidades.'
 pubDate: 'Jul 05 2022'
+tags:
+  - español
+  - big-o
+  - algorithms
 ---
 
 Este es el último post de la serie sobre la notación Big-O. En este artículo, analizaremos el rendimiento de cada tipo de expresión y aprenderemos cómo combinar diferentes complejidades en un algoritmo.
