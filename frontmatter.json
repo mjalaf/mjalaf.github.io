@@ -1,0 +1,75 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "blog",
+      "pageBundle": false,
+      "previewPath": "/blog/",
+      "filePrefix": null,
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Publish Date",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "required": true
+        },
+        {
+          "title": "Updated Date",
+          "name": "updatedDate",
+          "type": "datetime"
+        },
+        {
+          "title": "Hero Image",
+          "name": "heroImage",
+          "type": "image"
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        }
+      ]
+    }
+  ],
+  "frontMatter.taxonomy.tags": [
+    "algorithms",
+    "architecture",
+    "azure",
+    "backstage",
+    "big-o",
+    "cosmosdb",
+    "devops",
+    "english",
+    "español",
+    "iot",
+    "javascript",
+    "linux",
+    "monitoring",
+    "observability",
+    "platform-engineering"
+  ],
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "Blog",
+      "path": "[[workspace]]/src/content/blog",
+      "contentTypes": ["blog"],
+      "defaultLocale": ""
+    }
+  ],
+  "frontMatter.content.publicFolder": "[[workspace]]/public",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://localhost:4321"
+}
