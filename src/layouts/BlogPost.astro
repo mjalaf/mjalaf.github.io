@@ -17,6 +17,8 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 	</head>
 
 	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<Header />
 		<main class="container mx-auto py-12 max-w-6xl">
 			<div class="max-xl:py-10 max-xl:px-4 max-lg:py-10 max-lg:px-4 max-sm:py-10 max-sm:px-4">
@@ -71,6 +73,25 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 						<slot />
 					</section>
 				</article>
+
+				<!-- Disqus Comments -->
+				<div class="mt-12 not-prose">
+					<h3 class="text-xl font-semibold text-zinc-300 mb-6">Comments</h3>
+					<div id="disqus_thread"></div>
+					<script is:inline define:vars={{ title, canonicalURL: Astro.url.href }}>
+						var disqus_config = function () {
+							this.page.url = canonicalURL;
+							this.page.title = title;
+						};
+						(function() {
+							var d = document, s = d.createElement('script');
+							s.src = 'https://mjalaf.disqus.com/embed.js';
+							s.setAttribute('data-timestamp', +new Date());
+							(d.head || d.body).appendChild(s);
+						})();
+					</script>
+					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+				</div>
 			</div>
 		</main>
 		<Footer />

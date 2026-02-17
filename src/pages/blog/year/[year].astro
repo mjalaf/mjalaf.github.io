@@ -1,34 +1,77 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_TITLE } from '../../../consts';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	const years = new Set<string>();
+	posts.forEach((post) => {
+		years.add(String(post.data.pubDate.getFullYear()));
+	});
+
+	return [...years].map((year) => ({
+		params: { year },
+		props: { year: Number(year) },
+	}));
+}
+
+const { year } = Astro.props;
+
+const posts = (await getCollection('blog'))
+	.filter((post) => post.data.pubDate.getFullYear() === year)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get all years for navigation
+const allPosts = await getCollection('blog');
+const yearCounts = new Map<number, number>();
+allPosts.forEach((post) => {
+	const y = post.data.pubDate.getFullYear();
+	yearCounts.set(y, (yearCounts.get(y) || 0) + 1);
+});
+const sortedYears = [...yearCounts.entries()].sort((a, b) => b[0] - a[0]);
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${year} - ${SITE_TITLE}`} description={`Posts from ${year}`} />
 	</head>
 	<body>
 		<!-- Google Tag Manager (noscript) -->
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<Header />
 		<main role="main" class="max-w-6xl mx-auto">
-			<!-- Hero Section -->
+			<!-- Header -->
 			<section class="flex flex-col items-start py-16 max-xl:px-4 max-lg:px-4 max-sm:px-4 max-sm:items-center max-sm:text-center">
 				<h1 class="text-4xl font-bold tracking-tight text-zinc-300 max-sm:text-2xl">
-					Welcome to the <span class="text-blue-500">Blog</span>
+					Posts from <span class="text-blue-500">{year}</span>
 				</h1>
-				<p class="mt-6 text-lg text-zinc-400 max-w-2xl max-sm:mt-3 max-sm:text-base">
-					Explore articles on programming, architecture, cloud technologies, and more.
+				<p class="mt-4 text-lg text-zinc-400">
+					{posts.length} article{posts.length !== 1 ? 's' : ''}
 				</p>
+			</section>
+
+			<!-- All Years -->
+			<section class="max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4 pb-8">
+				<div class="flex flex-wrap gap-2">
+					{sortedYears.map(([y, count]) => (
+						<a
+							href={`/blog/year/${y}/`}
+							class:list={[
+								'rounded-full px-4 py-1 text-sm no-underline transition',
+								y === year
+									? 'bg-blue-500 text-white'
+									: 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700',
+							]}
+						>
+							{y} <span class={y === year ? 'text-blue-200 ml-1' : 'text-zinc-500 ml-1'}>({count})</span>
+						</a>
+					))}
+				</div>
 			</section>
 
 			<!-- Post Grid -->
@@ -43,7 +86,7 @@ const posts = (await getCollection('blog')).sort(
 										<FormattedDate date={post.data.pubDate} />
 										{post.data.tags && post.data.tags.length > 0 && (
 											<span class="flex gap-2 pointer-events-auto">
-												{post.data.tags.slice(0, 2).map((tag) => (
+												{post.data.tags.slice(0, 3).map((tag) => (
 													<a href={`/blog/tag/${tag}/`} class="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300 no-underline hover:bg-zinc-700 transition">#{tag}</a>
 												))}
 											</span>
