@@ -17,19 +17,19 @@ Azure CosmosDB allows you to enable and store logs in Log Analytics, which is he
 
 1. Access the CosmosDB account and, in the left panel, go to **Monitoring > Diagnostic Settings**.
 
-![Cosmos Analytics](/assets/img/CosmosLogA/1.jpg)
+![Cosmos Analytics](/images/CosmosLogA/1.jpg)
 
 2. A message will prompt you about enabling "Full Text Query." Click **Not Now**.
 
-![Cosmos Analytics](/assets/img/CosmosLogA/2.jpg)
+![Cosmos Analytics](/images/CosmosLogA/2.jpg)
 
 3. If no Diagnostic Settings are enabled, click **Add Diagnostic Settings**.
 
-![Cosmos Analytics](/assets/img/CosmosLogA/1a.jpg)
+![Cosmos Analytics](/images/CosmosLogA/1a.jpg)
 
 4. Select the logs you want to store in Log Analytics.
 
-![Cosmos Analytics](/assets/img/CosmosLogA/1b.jpg)
+![Cosmos Analytics](/images/CosmosLogA/1b.jpg)
 
 ### Key Categories of Logs
 
@@ -54,7 +54,7 @@ AzureDiagnostics
 | order by count_ desc
 ```
 
-![Cosmos Analytics](/assets/img/CosmosLogA/5.jpg)
+![Cosmos Analytics](/images/CosmosLogA/5.png)
 
 For example, in a 24-hour period, over 112 million logs were stored in the **DataPlaneRequest** category.
 
@@ -64,17 +64,17 @@ For example, in a 24-hour period, over 112 million logs were stored in the **Dat
 
 To access logs, navigate to **Monitoring > Logs** in the CosmosDB account.
 
-![Cosmos Analytics](/assets/img/CosmosLogA/1.jpg)
+![Cosmos Analytics](/images/CosmosLogA/1.jpg)
 
 Log Analytics provides pre-defined queries separated into **Alerts** and **Diagnostics**:
 
 ### Alerts Queries
 
-![Cosmos Analytics](/assets/img/CosmosLogA/2-a.jpg)
+![Cosmos Analytics](/images/CosmosLogA/2-a.jpg)
 
 ### Diagnostics Queries
 
-![Cosmos Analytics](/assets/img/CosmosLogA/2-b.jpg)
+![Cosmos Analytics](/images/CosmosLogA/2-b.jpg)
 
 ### Sample Query
 
@@ -90,13 +90,13 @@ AzureDiagnostics
 | order by numberOfOperations
 ```
 
-![Cosmos Analytics](/assets/img/CosmosLogA/2-c.jpg)
+![Cosmos Analytics](/images/CosmosLogA/2-c.jpg)
 
 ### Available Logs in CosmosDB
 
 On the left panel, you can view logs available for CosmosDB:
 
-![Cosmos Analytics](/assets/img/CosmosLogA/6.jpg)
+![Cosmos Analytics](/images/CosmosLogA/6.jpg)
 
 ---
 
@@ -123,11 +123,11 @@ SELECT c.id, c.firstname, c.lastname FROM c WHERE c.id="123"
 1. Navigate to **Diagnostic Settings**.
 2. Click **Go to Feature** when prompted to enable full-text query logging.
 
-![Cosmos Analytics](/assets/img/CosmosLogA/2.jpg)
+![Cosmos Analytics](/images/CosmosLogA/2.jpg)
 
 3. Click **Diagnostics full-text query** and enable it.
 
-![Cosmos Analytics](/assets/img/CosmosLogA/7.jpg)
+![Cosmos Analytics](/images/CosmosLogA/7.jpg)
 
 ---
 

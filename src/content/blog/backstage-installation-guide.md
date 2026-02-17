@@ -9,8 +9,6 @@ tags:
   - devops
 ---
 
-# Backstage on Linux (Ubuntu): Install Guide + Component Definitions + Troubleshooting
-
 This guide walks you through installing Backstage on a clean Linux
 machine (Ubuntu recommended), running it locally or on your LAN, and
 defining your first Software Catalog components.
@@ -157,7 +155,7 @@ HOST=0.0.0.0 yarn start
 
 ------------------------------------------------------------------------
 
-# Software Catalog: Component Definitions
+## Software Catalog: Component Definitions
 
 ## Component Example
 
@@ -231,7 +229,7 @@ spec:
 
 ------------------------------------------------------------------------
 
-# Troubleshooting
+## Troubleshooting
 
 ## TypeError: Failed to fetch
 
