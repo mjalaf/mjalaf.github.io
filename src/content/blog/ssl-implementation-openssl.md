@@ -19,7 +19,7 @@ This is a practical, command-heavy guide to stand up a simple PKI using **OpenSS
 - Generate artifacts (**CSR**, **CRT**, **KEY**, **PKCS#12 / PFX**)  
 - Validate trust, authenticity, and certificate chains  
 
-> Assumption: Linux shell, OpenSSL 1.1.x (typical in 2019-era distros). Commands still work today with minor path/flag differences.
+> Assumption: Linux shell, OpenSSL 1.1.x. Commands still work today with minor path/flag differences.
 
 ---
 

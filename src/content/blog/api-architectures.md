@@ -9,7 +9,7 @@ tags:
   - cloud-native
 ---
 
-Modern distributed systems rely on well-defined API interaction patterns. While new frameworks and tooling continue to evolve, the core architectural styles remain foundational. This article revisits six widely utilized API architectures in 2024:
+Modern distributed systems rely on well-defined API interaction patterns. While new frameworks and tooling continue to evolve, the core architectural styles remain foundational. This article revisits six widely utilized API architectures:
 
 - MQTT  
 - SOAP  
