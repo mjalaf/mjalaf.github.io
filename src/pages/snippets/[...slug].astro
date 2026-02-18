@@ -1,0 +1,110 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+
+export async function getStaticPaths() {
+	const snippets = await getCollection('snippets');
+	return snippets.map((snippet) => ({
+		params: { slug: snippet.id },
+		props: snippet,
+	}));
+}
+type Props = CollectionEntry<'snippets'>;
+
+const snippet = Astro.props;
+const { title, description, category } = snippet.data;
+const { Content } = await render(snippet);
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={`${title} - Snippets`} description={description} />
+		<style>
+			/* Copy button */
+			.snippet-copy-btn {
+				position: absolute;
+				top: 0.5rem;
+				right: 0.5rem;
+				padding: 0.25rem 0.5rem;
+				font-size: 0.7rem;
+				border-radius: 0.375rem;
+				background: rgba(63, 63, 70, 0.8);
+				color: #a1a1aa;
+				border: 1px solid rgba(113, 113, 122, 0.3);
+				cursor: pointer;
+				opacity: 0;
+				transition: opacity 0.15s, background 0.15s;
+			}
+			.snippet-copy-btn:hover {
+				background: rgba(82, 82, 91, 0.9);
+				color: #e4e4e7;
+			}
+			pre:hover .snippet-copy-btn,
+			.snippet-copy-btn.visible {
+				opacity: 1;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<Header />
+		<main class="container mx-auto py-12 max-w-6xl">
+			<div class="max-xl:py-10 max-xl:px-4 max-lg:py-10 max-lg:px-4 max-sm:py-10 max-sm:px-4">
+				<article class="prose prose-invert max-w-none md:px-0 py-12">
+					<!-- Header -->
+					<header class="mb-6">
+						<div class="flex items-center gap-3 mb-3">
+							<a href="/snippets" class="text-sm text-blue-500 no-underline hover:underline">&larr; All Snippets</a>
+							<span class="text-zinc-600">|</span>
+							<a href={`/snippets/#${category.toLowerCase().replace(/\s+/g, '-')}`} class="inline-block rounded-full bg-zinc-800 px-3 py-0.5 text-xs text-zinc-300 no-underline hover:bg-zinc-700 transition">
+								{category}
+							</a>
+						</div>
+
+						<h1 class="text-4xl font-bold leading-tight mb-4 text-white">
+							{title}
+						</h1>
+
+						<p class="text-lg text-zinc-400">{description}</p>
+					</header>
+
+					<!-- Content -->
+					<section class="mdx-content">
+						<Content />
+					</section>
+				</article>
+			</div>
+		</main>
+		<Footer />
+
+		<!-- Copy-to-clipboard for code blocks -->
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', function () {
+				document.querySelectorAll('pre').forEach(function (pre) {
+					// Make pre position: relative for button placement
+					pre.style.position = 'relative';
+					var btn = document.createElement('button');
+					btn.className = 'snippet-copy-btn';
+					btn.textContent = 'Copy';
+					btn.addEventListener('click', function () {
+						var code = pre.querySelector('code');
+						var text = code ? code.textContent : pre.textContent;
+						navigator.clipboard.writeText(text).then(function () {
+							btn.textContent = 'Copied!';
+							btn.classList.add('visible');
+							setTimeout(function () {
+								btn.textContent = 'Copy';
+								btn.classList.remove('visible');
+							}, 2000);
+						});
+					});
+					pre.appendChild(btn);
+				});
+			});
+		</script>
+	</body>
+</html>

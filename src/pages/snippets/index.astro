@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const allSnippets = await getCollection('snippets');
+
+// Group snippets by category
+const grouped: Record<string, typeof allSnippets> = {};
+for (const snippet of allSnippets) {
+	const cat = snippet.data.category;
+	if (!grouped[cat]) grouped[cat] = [];
+	grouped[cat].push(snippet);
+}
+// Sort categories alphabetically
+const categories = Object.keys(grouped).sort();
+
+// Category icons (emoji)
+const categoryIcons: Record<string, string> = {
+	'Linux': '🐧',
+	'Docker': '🐳',
+	'AKS': '☸️',
+	'ARO': '🎩',
+	'Azure APIM': '🔀',
+	'KQL': '🔍',
+	'Terraform': '🏗️',
+	'Networking': '🌐',
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Snippets - ${SITE_TITLE}`} description="Copy-paste ready technical snippets for Linux, Docker, AKS, Terraform, and more." />
+	</head>
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<Header />
+		<main role="main" class="max-w-6xl mx-auto">
+			<!-- Hero Section -->
+			<section class="flex flex-col items-start py-16 max-xl:px-4 max-lg:px-4 max-sm:px-4 max-sm:items-center max-sm:text-center">
+				<h1 class="text-4xl font-bold tracking-tight text-zinc-300 max-sm:text-2xl">
+					<span class="text-blue-500">Snippets</span>
+				</h1>
+				<p class="mt-6 text-lg text-zinc-400 max-w-2xl max-sm:mt-3 max-sm:text-base">
+					Copy-paste ready code blocks and commands, organized by technology.
+				</p>
+			</section>
+
+			<!-- Category quick nav -->
+			<section class="mx-auto max-w-7xl px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4 pb-6">
+				<div class="flex flex-wrap gap-2">
+					{categories.map((cat) => (
+						<a href={`#${cat.toLowerCase().replace(/\s+/g, '-')}`}
+						   class="inline-flex items-center gap-1.5 rounded-full bg-zinc-800 px-3.5 py-1.5 text-sm text-zinc-300 no-underline hover:bg-zinc-700 hover:text-white transition">
+							<span>{categoryIcons[cat] || '📄'}</span>
+							{cat}
+							<span class="text-xs text-zinc-500">({grouped[cat].length})</span>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<!-- Snippets by Category -->
+			{categories.map((cat) => (
+				<section id={cat.toLowerCase().replace(/\s+/g, '-')} class="mx-auto max-w-7xl py-8 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
+					<h2 class="text-2xl font-bold text-zinc-200 mb-6 flex items-center gap-2">
+						<span>{categoryIcons[cat] || '📄'}</span>
+						{cat}
+					</h2>
+					<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+						{grouped[cat].map((snippet) => (
+							<article class="group relative rounded-xl bg-zinc-900/60 p-5 transition hover:bg-zinc-900/80 hover:shadow-xl hover:shadow-black/30 border border-zinc-800/50">
+								<a href={`/snippets/${snippet.id}/`} class="absolute inset-0 z-10 rounded-xl" aria-label={snippet.data.title}></a>
+								<div class="relative z-20 pointer-events-none">
+									<h3 class="text-base font-semibold leading-snug text-zinc-100 transition group-hover:text-blue-400">
+										{snippet.data.title}
+									</h3>
+									<p class="mt-2 text-sm leading-relaxed text-zinc-500">
+										{snippet.data.description}
+									</p>
+								</div>
+							</article>
+						))}
+					</div>
+				</section>
+			))}
+
+			<!-- Bottom padding -->
+			<div class="pb-16"></div>
+		</main>
+		<Footer />
+	</body>
+</html>
