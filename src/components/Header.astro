@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/MJ-Logo.png';
 import { SITE_TITLE } from '../consts';
 
 const navItems = [
@@ -21,7 +23,15 @@ const navItems = [
 		shadow-[0_0_15px_rgba(255,255,255,0.5)] shadow-blue-300"
 	>
 		<!-- Logo -->
-		<a href="/" class="flex items-center gap-2 font-semibold text-zinc-100">
+		<a href="/" class="flex items-center gap-2 font-semibold text-zinc-100 no-underline">
+			<Image
+				src={logo}
+				alt={`${SITE_TITLE} logo`}
+				width={36}
+				height={36}
+				class="rounded-md"
+				loading="eager"
+			/>
 			<h2 class="text-blue-500 font-semibold text-base m-0">{SITE_TITLE}</h2>
 		</a>
 
