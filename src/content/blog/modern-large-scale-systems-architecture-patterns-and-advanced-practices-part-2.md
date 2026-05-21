@@ -1,10 +1,10 @@
 ---
-title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices
-  - Parte 2: Implementacion'
-date: 2026-01-17 
-categories:
-- tech
+title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Parte 2: Implementacion'
+description: Este artículo explora el diseño y arquitectura de sistemas capaces de manejar millones de solicitudes diarias, abordando patrones, almacenamiento global, procesamiento de eventos y big data para lograr alta escalabilidad y disponibilidad.
+pubDate: 2026-01-17
+author: Martin Jalaf
 tags:
+- english
 - arquitectura-software
 - escalabilidad
 - alta-disponibilidad
@@ -12,15 +12,6 @@ tags:
 - procesamiento-de-eventos
 - almacenamiento-global
 - patrones-arquitectonicos
-author: Martin Jalaf
-lang: en
-toc: true
-comments: true
-excerpt: Este artículo explora el diseño y arquitectura de sistemas capaces de manejar
-  millones de solicitudes diarias, abordando patrones, almacenamiento global, procesamiento
-  de eventos y big data para lograr alta escalabilidad y disponibilidad.
-slug: modern-large-scale-systems-architecture-patterns-and-advanced-practices-part-2
-content_type: blog_post
 series: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices'
 series_part: 2
 series_total: 4
