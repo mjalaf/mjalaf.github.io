@@ -152,8 +152,8 @@ flowchart LR
   API-->LB[Load Balancer]
   subgraph Services
     direction TB
-    S1["Service A (stateless) \n replicas x N"]
-    S2["Service B (stateless) \n replicas x M"]
+    S1["Service A (stateless)<br/>replicas x N"]
+    S2["Service B (stateless)<br/>replicas x M"]
   end
   LB-->S1
   LB-->S2
@@ -161,15 +161,17 @@ flowchart LR
   S2-->ShardRouter
   subgraph DataLayer
     direction LR
-    Shard1["Shard 1 \n Primary (AZ1) \n Replica (AZ2)"]
-    Shard2["Shard 2 \n Primary (AZ2) \n Replica (AZ1)"]
-    ShardN["Shard N \n Primary (AZ3) \n Replica (AZ1)"]
+    Shard1["Shard 1<br/>Primary (AZ1)<br/>Replica (AZ2)"]
+    Shard2["Shard 2<br/>Primary (AZ2)<br/>Replica (AZ1)"]
+    ShardN["Shard N<br/>Primary (AZ3)<br/>Replica (AZ1)"]
   end
   ShardRouter-->Shard1
   ShardRouter-->Shard2
   ShardRouter-->ShardN
-  note right of Shard1: Replication factor = 3 (example)
-  note right of Shard2: Reads from local replicas for low latency
+  Shard1_note["Replication factor = 3 (example)"]
+  Shard1 -.- Shard1_note
+  Shard2_note["Reads from local replicas for low latency"]
+  Shard2 -.- Shard2_note
 ```
 
 *Diagram: Event flow in CQRS and Event Sourcing*

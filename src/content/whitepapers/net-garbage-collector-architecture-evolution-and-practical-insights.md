@@ -212,10 +212,8 @@ flowchart TB
 
   click LOH1 "https://docs.microsoft.com/dotnet/standard/garbage-collection/large-object-heap" "LOH docs"
 
-  note right of Heap1
-    Cada heap tiene TACs por hilo
-    y su propio conjunto de segmentos.
-  end
+  Heap1_note["Cada heap tiene TACs por hilo y su propio conjunto de segmentos."]
+  Heap1 -.- Heap1_note
 
   style LOH1 fill:#ffd,stroke:#333
   style Heap1 fill:#eef,stroke:#333

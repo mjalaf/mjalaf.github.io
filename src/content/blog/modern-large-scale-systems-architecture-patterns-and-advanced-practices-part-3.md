@@ -98,8 +98,10 @@ flowchart LR
   MaterializedViews --> ReadReplica["(Read Replica / Cache)"]
   ReadReplica --> Client
   ServiceA ---|calls| AuthService["Auth/Identity"]
-  note right of KafkaTopic: Partitions = N
-  note right of StreamProc: Checkpoints, State backends
+  KafkaTopic_note["Partitions = N"]
+  KafkaTopic -.- KafkaTopic_note
+  StreamProc_note["Checkpoints, State backends"]
+  StreamProc -.- StreamProc_note
 ```
 
 ## Limitations, trade-offs, and common challenges

@@ -391,8 +391,10 @@ flowchart LR
   Coordinator -- orchestrates --> Worker2
   Coordinator -- orchestrates --> Worker3
 
-  note right of Coordinator: mantiene catálogo de shards
-  note left of Worker1: guarda datos físicos de shards
+  Coordinator_note["mantiene catálogo de shards"]
+  Coordinator -.- Coordinator_note
+  Worker1_note["guarda datos físicos de shards"]
+  Worker1 -.- Worker1_note
 ```
 
 *Diagrama: Ejemplo de shard placement*
@@ -568,7 +570,8 @@ flowchart LR
   follower2 -->|ack| leader
   leader -->|commit to RocksDB via DocDB| client
 
-  note right of leader: leader applies entry and replies after quórum
+  leader_note["leader applies entry and replies after quórum"]
+  leader -.- leader_note
 ```
 
 ## CockroachDB: PostgreSQL-Compatible Distributed SQL
