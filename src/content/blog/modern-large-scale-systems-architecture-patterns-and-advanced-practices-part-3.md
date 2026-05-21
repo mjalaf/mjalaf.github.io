@@ -1,6 +1,6 @@
 ---
-title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Parte 3: Tradeoffs'
-description: Este artículo explora el diseño y arquitectura de sistemas capaces de manejar millones de solicitudes diarias, abordando patrones, almacenamiento global, procesamiento de eventos y big data para lograr alta escalabilidad y disponibilidad.
+title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Part 3: Tradeoffs'
+description: This article explores the design and architecture of systems capable of handling millions of daily requests, covering patterns, global storage, event processing, and big data to achieve high scalability and availability.
 pubDate: 2026-01-24
 author: Martin Jalaf
 tags:
@@ -84,20 +84,20 @@ References to code snippets in this section: "Kafka consumer idempotent.py" and 
 
 ```mermaid
 flowchart LR
-  Client[Client / Edge] --> CDN
+  Client["Client / Edge"] --> CDN
   CDN --> APIGW[API Gateway]
   APIGW --> LB[Load Balancer]
   LB --> ServiceA[Microservice A]
   LB --> ServiceB[Microservice B]
-  ServiceA -->|write events| KafkaTopic[Kafka Topic (partitioned)]
+  ServiceA -->|write events| KafkaTopic["Kafka Topic (partitioned)"]
   ServiceB -->|write events| KafkaTopic
   subgraph Stream
-    KafkaTopic --> StreamProc[Stream Processor (Flink/Kafka Streams)]
-    StreamProc --> MaterializedViews[(Materialized Views / DB shard)]
+    KafkaTopic --> StreamProc["Stream Processor (Flink/Kafka Streams)"]
+    StreamProc --> MaterializedViews["(Materialized Views / DB shard)"]
   end
-  MaterializedViews --> ReadReplica[(Read Replica / Cache)]
+  MaterializedViews --> ReadReplica["(Read Replica / Cache)"]
   ReadReplica --> Client
-  ServiceA ---|calls| AuthService[Auth/Identity]
+  ServiceA ---|calls| AuthService["Auth/Identity"]
   note right of KafkaTopic: Partitions = N
   note right of StreamProc: Checkpoints, State backends
 ```
@@ -205,4 +205,4 @@ The right decision is almost always pragmatic: start simple (modular monolith), 
 | Consistency | Easy ACID | Requires patterns (sagas) | Distributed, eventual |
 | Recommended use cases | MVP, small teams, critical ops with low variability | Systems with independent modules, selective scaling, domain teams | Webhooks, ad hoc ETL, spiky tasks, rapid prototypes |
 
-_Next part: 4/4_
+_Next part (4/4): [Part 4: Advanced](/blog/modern-large-scale-systems-architecture-patterns-and-advanced-practices-part-4/)_

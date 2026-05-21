@@ -1,6 +1,6 @@
 ---
-title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Parte 2: Implementacion'
-description: Este artículo explora el diseño y arquitectura de sistemas capaces de manejar millones de solicitudes diarias, abordando patrones, almacenamiento global, procesamiento de eventos y big data para lograr alta escalabilidad y disponibilidad.
+title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Part 2: Implementation'
+description: This article explores the design and architecture of systems capable of handling millions of daily requests, covering patterns, global storage, event processing, and big data to achieve high scalability and availability.
 pubDate: 2026-01-17
 author: Martin Jalaf
 tags:
@@ -90,16 +90,16 @@ Below is a topology diagram and a comparative table of popular distributed datab
 ```mermaid
 flowchart LR
     subgraph Region_US_East
-      A1[App US-East] --> R1[Replica Shard A (Leader)]
-      R1 -->|async| R1b[Replica Shard A (Local Read Replica)]
+      A1[App US-East] --> R1["Replica Shard A (Leader)"]
+      R1 -->|async| R1b["Replica Shard A (Local Read Replica)"]
     end
     subgraph Region_EU_West
-      A2[App EU-West] --> R2[Replica Shard A (Follower)]
-      R2 -->|async| R2b[Replica Shard A (Local Read Replica)]
+      A2[App EU-West] --> R2["Replica Shard A (Follower)"]
+      R2 -->|async| R2b["Replica Shard A (Local Read Replica)"]
     end
     subgraph Region_AP_South
-      A3[App AP-South] --> R3[Replica Shard B (Leader)]
-      R3 -->|async| R3b[Replica Shard B (Local Read Replica)]
+      A3[App AP-South] --> R3["Replica Shard B (Leader)"]
+      R3 -->|async| R3b["Replica Shard B (Local Read Replica)"]
     end
     R1 -- "replicate (CDC/stream)" --> R2
     R1 -- "replicate (CDC/stream)" --> R3
@@ -189,13 +189,13 @@ See the minimal example of transactional producer and consumer with manual commi
 
 ```mermaid
 flowchart LR
-  Producers[Producers / Ingest]
-  Ingest[Ingestion Layer\n(Kafka / Kinesis / PubSub)]
-  StreamProc[Stream Processing\n(Stateless & Stateful Operators)]
-  Checkpoint[Checkpointing & State Backend\n(RocksDB + Changelog)]
-  OLAP[OLAP / Data Warehouse]
-  Serving[Serving Stores / Materialized Views]
-  Replay[Replay / Reprocessing]
+  Producers["Producers / Ingest"]
+  Ingest["Ingestion Layer\n("Kafka / Kinesis / PubSub")"]
+  StreamProc["Stream Processing\n("Stateless & Stateful Operators")"]
+  Checkpoint["Checkpointing & State Backend\n(RocksDB + Changelog)"]
+  OLAP["OLAP / Data Warehouse"]
+  Serving["Serving Stores / Materialized Views"]
+  Replay["Replay / Reprocessing"]
 
   Producers --> Ingest
   Ingest --> StreamProc
@@ -218,7 +218,7 @@ sequenceDiagram
   participant C as Consumer
   participant S as State Backend
 
-  P->>B: produce(key, value) acks=all
+  P->>B: produce("key, value") acks=all
   B->>B: replicate to ISR (replication.factor=3)
   B-->>P: ack
   C->>B: poll() gets message
@@ -299,16 +299,16 @@ There is no single "optimal" architecture: for pipelines requiring historical ac
 ```mermaid
 flowchart LR
   subgraph Lambda
-    A[Ingestion (stream)] --> B[Speed layer (stream processing)]
-    C[Batch ingestion] --> D[Batch layer (recompute)]
+    A["Ingestion (stream)"] --> B["Speed layer (stream processing)"]
+    C[Batch ingestion] --> D["Batch layer (recompute)"]
     B --> E[Serving layer]
     D --> E
     style Lambda fill:#f9f,stroke:#333,stroke-width:1px
   end
 
   subgraph Kappa
-    F[Ingestion (stream/log)] --> G[Streaming processor (single path)]
-    G --> H[Materialized views / Serving]
+    F["Ingestion (stream/log)"] --> G["Streaming processor (single path)"]
+    G --> H["Materialized views / Serving"]
     style Kappa fill:#9ff,stroke:#333,stroke-width:1px
   end
 
@@ -326,16 +326,16 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  Ingest[Sources: apps, logs, IoT] --> Stream[Ingest Stream (Kafka)]
-  Ingest --> Batch[Ingest Batch (files)]
-  Stream --> Raw[Data Lake - Raw (S3/GCS)]
+  Ingest["Sources: apps, logs, IoT"] --> Stream["Ingest Stream (Kafka)"]
+  Ingest --> Batch["Ingest Batch (files)"]
+  Stream --> Raw["Data Lake - Raw (S3/GCS)"]
   Batch --> Raw
-  Raw --> ETL[Transformations (Spark/Flink/DBT)]
-  ETL --> Curated[Data Lake - Curated (Parquet/Delta/Iceberg)]
-  Curated --> Warehouse[Data Warehouse / Query Service (BigQuery/Snowflake)]
-  Warehouse --> BI[BI / Dashboards / ML]
-  Curated --> Serving[External Tables / Federated Query]
-  Raw --- Catalog[Catalog & Lineage (Glue/Atlas)]
+  Raw --> ETL["Transformations (Spark/Flink/DBT)"]
+  ETL --> Curated["Data Lake - Curated (Parquet/Delta/Iceberg)"]
+  Curated --> Warehouse["Data Warehouse / Query Service (BigQuery/Snowflake)"]
+  Warehouse --> BI["BI / Dashboards / ML"]
+  Curated --> Serving["External Tables / Federated Query"]
+  Raw --- Catalog["Catalog & Lineage (Glue/Atlas)"]
   Curated --- Catalog
   Warehouse --- Catalog
   style Raw fill:#fff2cc
@@ -345,4 +345,4 @@ flowchart LR
   class Catalog infra
 ```
 
-_Next part: 3/4_
+_Next part (3/4): [Part 3: Tradeoffs](/blog/modern-large-scale-systems-architecture-patterns-and-advanced-practices-part-3/)_

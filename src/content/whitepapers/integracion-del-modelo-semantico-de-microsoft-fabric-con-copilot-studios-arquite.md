@@ -83,16 +83,16 @@ En la siguiente sección veremos cómo estos modelos se exponen a Copilot Studio
 ```mermaid
 flowchart LR
   A[Fuentes de datos]
-  A -->|Delta / Parquet| B(Lakehouse / OneLake)
+  A -->|Delta / Parquet| B("Lakehouse / OneLake")
   A -->|SQL / Synapse| C(SQL endpoints)
   A -->|Kusto / ADX| D(Azure Data Explorer)
-  B --> E[Curación / ETL (Notebooks, Pipelines)]
+  B --> E["Curación / ETL (Notebooks, Pipelines)"]
   C --> E
   D --> E
-  E --> F[Modelo Semántico (tablas, relaciones, DAX, RLS)]
-  F --> G[Copilot Studios / Q&A / Dashboards]
-  F --> H[SQL endpoint / Semantic API]
-  G --> I[Analistas / Aplicaciones]
+  E --> F["Modelo Semántico (tablas, relaciones, DAX, RLS)"]
+  F --> G["Copilot Studios / Q&A / Dashboards"]
+  F --> H["SQL endpoint / Semantic API"]
+  G --> I["Analistas / Aplicaciones"]
   H --> I
 ```
 
@@ -163,22 +163,22 @@ Operativa concreta: una práctica habitual es mantener en Git el proyecto Tabula
 ```mermaid
 flowchart LR
   subgraph Sources
-    A1[OneLake / Lakehouse (parquet/delta)]
-    A2[Synapse / SQL / External DB]
+    A1["OneLake / Lakehouse (parquet/delta)"]
+    A2["Synapse / SQL / External DB"]
   end
-  A1 --> Ingest[ETL / Notebooks / Dataflows]
+  A1 --> Ingest["ETL / Notebooks / Dataflows"]
   A2 --> Ingest
-  Ingest --> Storage[Lakehouse / Delta Storage]
-  Storage -->|import| VertiPaq[VertiPaq (xVelocity) - Storage Engine]
+  Ingest --> Storage["Lakehouse / Delta Storage"]
+  Storage -->|import| VertiPaq["VertiPaq (xVelocity) - Storage Engine"]
   Storage -->|directquery| DirectQuery[Query Delegation Layer]
-  VertiPaq --> Calc[Formula Engine / DAX]
+  VertiPaq --> Calc["Formula Engine / DAX"]
   DirectQuery --> Calc
-  Calc --> QueryAPI[Query API / XMLA / REST]
-  QueryAPI --> Consumers[Power BI / Copilot Studios / BI Apps]
+  Calc --> QueryAPI["Query API / XMLA / REST"]
+  QueryAPI --> Consumers["Power BI / Copilot Studios / BI Apps"]
   subgraph Management
-    M1[XMLA / TMSL / TOM]
-    M2[TabularEditor / CI-CD]
-    M3[Partitions & Refresh Policies]
+    M1["XMLA / TMSL / TOM"]
+    M2["TabularEditor / CI-CD"]
+    M3["Partitions & Refresh Policies"]
   end
   M1 --> VertiPaq
   M2 --> M1
@@ -376,11 +376,11 @@ Consideraciones finales: siempre validar las consultas generadas por Copilot con
 ```mermaid
 flowchart LR
   U[Usuario - Natural language prompt] --> C[Copilot Studios - Interpretación]
-  C --> M[Lookup: Semantic Model metadata (measures, synonyms, perspectives)]
-  C --> G[Generación de consulta (DAX/SQL)]
-  G --> E[Ejecutor: Fabric Engine (Dataset/SQL endpoint/Lakehouse)]
-  E --> R[Resultados (tabular)]
-  R --> P[Post-procesado por Copilot: explicaciones, visualizaciones sugeridas]
+  C --> M["Lookup: Semantic Model metadata (measures, synonyms, perspectives)"]
+  C --> G["Generación de consulta (DAX/SQL)"]
+  G --> E["Ejecutor: Fabric Engine (Dataset/SQL endpoint/Lakehouse)"]
+  E --> R["Resultados (tabular)"]
+  R --> P["Post-procesado por Copilot: explicaciones, visualizaciones sugeridas"]
   P --> U
   M -- metadata --> P
   C -- sugerencias de optimización --> G

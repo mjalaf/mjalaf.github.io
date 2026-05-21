@@ -1,6 +1,6 @@
 ---
-title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Parte 1: Fundamentos'
-description: Este artículo explora el diseño y arquitectura de sistemas capaces de manejar millones de solicitudes diarias, abordando patrones, almacenamiento global, procesamiento de eventos y big data para lograr alta escalabilidad y disponibilidad.
+title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Part 1: Fundamentals'
+description: This article explores the design and architecture of systems capable of handling millions of daily requests, covering patterns, global storage, event processing, and big data to achieve high scalability and availability.
 pubDate: 2026-01-10
 author: Martin Jalaf
 tags:
@@ -77,13 +77,13 @@ flowchart LR
   C --> F[Slow and risky deployments]
   D --> G[Decomposition into services]
   E --> H[Caching and CQRS]
-  F --> I[CI/CD automation and canary]
+  F --> I["CI/CD automation and canary"]
   G --> J[Partitioning and replication]
   H --> K[Stream processing]
   I --> L[Observability and SRE]
   J --> M[Geo-replication and chosen consistency]
   K --> N[Backpressure and resilience]
-  L --> O[Failure testing (Chaos)]
+  L --> O["Failure testing (Chaos)"]
   M --> P[Operation and governance]
   N --> P
   O --> P
@@ -152,8 +152,8 @@ flowchart LR
   API-->LB[Load Balancer]
   subgraph Services
     direction TB
-    S1[Service A (stateless) \n replicas x N]
-    S2[Service B (stateless) \n replicas x M]
+    S1["Service A (stateless) \n replicas x N"]
+    S2["Service B (stateless) \n replicas x M"]
   end
   LB-->S1
   LB-->S2
@@ -161,9 +161,9 @@ flowchart LR
   S2-->ShardRouter
   subgraph DataLayer
     direction LR
-    Shard1[Shard 1 \n Primary (AZ1) \n Replica (AZ2)]
-    Shard2[Shard 2 \n Primary (AZ2) \n Replica (AZ1)]
-    ShardN[Shard N \n Primary (AZ3) \n Replica (AZ1)]
+    Shard1["Shard 1 \n Primary (AZ1) \n Replica (AZ2)"]
+    Shard2["Shard 2 \n Primary (AZ2) \n Replica (AZ1)"]
+    ShardN["Shard N \n Primary (AZ3) \n Replica (AZ1)"]
   end
   ShardRouter-->Shard1
   ShardRouter-->Shard2
@@ -176,21 +176,21 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  Command -->|1| WriteModel[Command Handler / Aggregate]
-  WriteModel -->|append| EventStore[(Event Store)]
-  EventStore -->|publish| EventBus[(Event Bus / Kafka)]
-  EventBus --> ProjectionService[Projector / Materializer]
-  ProjectionService --> ReadModel[(Read DB / Index)]
+  Command -->|1| WriteModel["Command Handler / Aggregate"]
+  WriteModel -->|append| EventStore["(Event Store)"]
+  EventStore -->|publish| EventBus["(Event Bus / Kafka)"]
+  EventBus --> ProjectionService["Projector / Materializer"]
+  ProjectionService --> ReadModel["(Read DB / Index)"]
   Query -->|reads| ReadModel
-  EventBus --> Saga[Long-running workflow (Saga)]
+  EventBus --> Saga["Long-running workflow (Saga)"]
   Saga -->|dispatch| Command
   subgraph Notes
     direction TB
-    E1[Event sourcing: source of truth = events]
-    E2[CQRS: separate write/read models]
+    E1["Event sourcing: source of truth = events"]
+    E2["CQRS: separate write/read models"]
   end
   EventStore -.-> E1
   ReadModel -.-> E2
 ```
 
-_Next part: 2/4_
+_Next part (2/4): [Part 2: Implementation](/blog/modern-large-scale-systems-architecture-patterns-and-advanced-practices-part-2/)_

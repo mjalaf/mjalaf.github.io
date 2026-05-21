@@ -1,6 +1,6 @@
 ---
-title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Parte 4: Avanzado'
-description: Este artículo explora el diseño y arquitectura de sistemas capaces de manejar millones de solicitudes diarias, abordando patrones, almacenamiento global, procesamiento de eventos y big data para lograr alta escalabilidad y disponibilidad.
+title: 'Modern Large-Scale Systems: Architecture, Patterns, and Advanced Practices - Part 4: Advanced'
+description: This article explores the design and architecture of systems capable of handling millions of daily requests, covering patterns, global storage, event processing, and big data to achieve high scalability and availability.
 pubDate: 2026-02-05
 author: Martin Jalaf
 tags:

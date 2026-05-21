@@ -87,13 +87,13 @@ timeline
 
 ```mermaid
 flowchart LR
-    A[Datos: texto, imagen, audio] --> B[Modelo ML / Embedder]
-    B --> C[Embeddings (R^d)]
-    C --> D[Vector DB: indexado ANN, cuantización, sharding]
-    D --> E[Aplicaciones: búsqueda semántica, RAG, recomendación]
-    B --> F[Entrenamiento / actualización de modelos]
+    A["Datos: texto, imagen, audio"] --> B["Modelo ML / Embedder"]
+    B --> C["Embeddings (R^d)"]
+    C --> D["Vector DB: indexado ANN, cuantización, sharding"]
+    D --> E["Aplicaciones: búsqueda semántica, RAG, recomendación"]
+    B --> F["Entrenamiento / actualización de modelos"]
     F --> C
-    E --> G[Feedback: señales de relevancia]
+    E --> G["Feedback: señales de relevancia"]
     G --> F
 ```
 
@@ -167,17 +167,17 @@ Las bases de datos vectoriales operan en la intersección de ML y sistemas: repr
 
 ```mermaid
 flowchart LR
-  A[Texto / Imágenes / Audio / Estructurado]
-  A -->|tokenize / preprocess| B[Encoder (ML model)]
-  B --> C[Vector (embedding) d-dim]
+  A["Texto / Imágenes / Audio / Estructurado"]
+  A -->|tokenize / preprocess| B["Encoder (ML model)"]
+  B --> C["Vector (embedding) d-dim"]
   C --> D{Almacenamiento}
-  D --> D1[Primary store: flat files / object store]
-  D --> D2[Index ANN: HNSW / IVF+PQ / LSH]
-  D --> D3[Metadata DB: IDs, schema]
+  D --> D1["Primary store: flat files / object store"]
+  D --> D2["Index ANN: HNSW / IVF+PQ / LSH"]
+  D --> D3["Metadata DB: IDs, schema"]
   C -->|consulta| E[Query encoder]
-  E --> F[Search engine (ANN)]
+  E --> F["Search engine (ANN)"]
   F --> G[Ranking / Re-rank (optional)
-  G --> H[Application: search results / recommender]
+  G --> H["Application: search results / recommender"]
 
   style B fill:#f9f,stroke:#333,stroke-width:1px
   style D2 fill:#ff9,stroke:#333,stroke-width:1px
@@ -282,19 +282,19 @@ IDs y versionado
 ```mermaid
 flowchart LR
   Client[Client]
-  API[API / Gateway]
-  Preprocess[Preprocess / Embedding Service]
+  API["API / Gateway"]
+  Preprocess["Preprocess / Embedding Service"]
   Planner[Query Planner]
   Filter[Metadata Filter]
   ShardRouter[Shard Router]
-  ANNNode1[ANN Node (Shard A)]
-  ANNNode2[ANN Node (Shard B)]
-  VectorStore[Vector Storage (MMAP / SSD / RAM)]
+  ANNNode1["ANN Node (Shard A)"]
+  ANNNode2["ANN Node (Shard B)"]
+  VectorStore["Vector Storage (MMAP / SSD / RAM)"]
   MetaStore[Metadata Store]
-  ReRank[Re-ranker / Exact Distance]
+  ReRank["Re-ranker / Exact Distance"]
   Results[Results]
-  Persistence[Persistence (WAL / SST)]
-  Monitoring[Monitoring / Metrics]
+  Persistence["Persistence (WAL / SST)"]
+  Monitoring["Monitoring / Metrics"]
 
   Client --> API
   API --> Preprocess
@@ -322,13 +322,13 @@ flowchart LR
 ```mermaid
 flowchart LR
   C[Client Request]
-  E[Embedding / Query Vector]
+  E["Embedding / Query Vector"]
   P[Apply Metadata Prefilter]
   SR[Select Shards]
-  CS[Candidate Selection (IVF / Routing / HNSW entry)]
-  ANN[ANN Search (HNSW / PQ)]
-  RR[Re-rank (exact distances / asymmetric)]
-  POST[Apply post-filters & business rules]
+  CS["Candidate Selection (IVF / Routing / HNSW entry)"]
+  ANN["ANN Search (HNSW / PQ)"]
+  RR["Re-rank (exact distances / asymmetric)"]
+  POST["Apply post-filters & business rules"]
   RESP[Return results]
 
   C --> E
@@ -394,17 +394,17 @@ En la tabla siguiente se resumen las diferencias técnicas y a continuación un 
 
 ```mermaid
 flowchart LR
-  A[Entrada: Requerimiento]
+  A["Entrada: Requerimiento"]
   A --> B{¿Necesita transacciones ACID y joins?}
-  B -- Sí --> RDBMS[Relacional: RDBMS]
-  B -- No --> C{¿Necesita alta ingesta/almacenamiento flexible?}
-  C -- Sí --> NOSQL[NoSQL: Document/Key-Value]
-  C -- No --> D{¿Necesita búsqueda semántica / recomendación / RAG?}
+  B -- Sí --> RDBMS["Relacional: RDBMS"]
+  B -- No --> C{"¿Necesita alta ingesta/almacenamiento flexible?"}
+  C -- Sí --> NOSQL["NoSQL: Document/Key-Value"]
+  C -- No --> D{"¿Necesita búsqueda semántica / recomendación / RAG?"}
   D -- Sí --> VDB[Base Vectorial]
   D -- No --> NOSQL
-  RDBMS --> Z[Ej: facturación, ERP]
-  NOSQL --> Y[Ej: telemetría, catálogos]
-  VDB --> X[Ej: búsqueda semántica, recomendaciones]
+  RDBMS --> Z["Ej: facturación, ERP"]
+  NOSQL --> Y["Ej: telemetría, catálogos"]
+  VDB --> X["Ej: búsqueda semántica, recomendaciones"]
 ```
 
 ## Técnicas de Indexación y Búsqueda Vectorial
@@ -481,20 +481,20 @@ Ver diagrama: "Indexación y búsqueda ANN" para el flujo típico de construcci�
 
 ```mermaid
 flowchart LR
-  A[Raw vectors / embeddings] --> B[Preprocessing: normalize / PCA / OPQ]
+  A["Raw vectors / embeddings"] --> B["Preprocessing: normalize / PCA / OPQ"]
   B --> C{Choose index type}
-  C -->|HNSW| D[Build HNSW graph (M, efConstruction)]
-  C -->|IVF + PQ| E[Cluster (kmeans nlist) -> encode with PQ]
+  C -->|HNSW| D["Build HNSW graph (M, efConstruction)"]
+  C -->|IVF + PQ| E["Cluster (kmeans nlist) -> encode with PQ"]
   C -->|Annoy / Trees| F[Build forest of trees]
-  D --> G[Save index / Serve in RAM]
+  D --> G["Save index / Serve in RAM"]
   E --> G
   F --> G
   
   subgraph Query
     Q[Query embedding] --> H[Candidate selection]
-    H --> I[ANN search on index (ef / nprobe / traverse)]
+    H --> I["ANN search on index (ef / nprobe / traverse)"]
     I --> J[Top-K candidates]
-    J --> K[Optional re-ranking (exact distances)]
+    J --> K["Optional re-ranking (exact distances)"]
     K --> L[Return results]
   end
   G --> H
@@ -555,15 +555,15 @@ En resumen: las bases vectoriales ofrecen valor diferencial donde la semántica 
 ```mermaid
 flowchart LR
   subgraph Offline
-    A[Data collection: events, catalog, images] --> B[Feature engineering / Embedding training]
+    A["Data collection: events, catalog, images"] --> B["Feature engineering / Embedding training"]
     B --> C[Batch embed items]
-    C --> D[Indexing (Vector DB) & Store metadata (RDBMS/NoSQL)]
+    C --> D["Indexing (Vector DB) & Store metadata (RDBMS/NoSQL)"]
   end
   subgraph Online
     U[User request] --> E[User embedding service]
-    E --> F[Vector DB: ANN search]
-    F --> G[Apply filters & hybrid scoring]
-    G --> H[Reranker / Business rules]
+    E --> F["Vector DB: ANN search"]
+    F --> G["Apply filters & hybrid scoring"]
+    G --> H["Reranker / Business rules"]
     H --> I[Response]
   end
   D --> F
@@ -577,16 +577,16 @@ flowchart LR
 ```mermaid
 flowchart LR
   Q[Query text] --> T[Tokenizer]
-  T --> E[Embedding model (Transformer / USE / SBERT)]
-  E --> V[Vector DB (ANN query)]
-  V --> R[Candidates (k)]
-  R --> X[Optional reranker (cross-encoder)]
+  T --> E["Embedding model (Transformer / USE / SBERT)"]
+  E --> V["Vector DB (ANN query)"]
+  V --> R["Candidates (k)"]
+  R --> X["Optional reranker (cross-encoder)"]
   X --> S[Apply metadata filters]
   S --> O[Final results]
   subgraph Offline
     Docs[Document corpus] --> DT[Doc tokenizer]
     DT --> DE[Doc embeddings]
-    DE --> Index[Build/Update ANN Index]
+    DE --> Index["Build/Update ANN Index"]
   end
   Index --> V
 ```
@@ -726,18 +726,18 @@ flowchart LR
   A[Ingesta de datos] --> B[Preprocesamiento y Tokenización]
   B --> C[Generación de Embeddings]
   C --> D[Construcción de Índice]
-  D --> E[Consulta / Búsqueda]
-  E --> F[Re-ranking (exact)]
-  D --> G[Reindex / Compactación]
+  D --> E["Consulta / Búsqueda"]
+  E --> F["Re-ranking (exact)"]
+  D --> G["Reindex / Compactación"]
   G --> D
   E --> H[Monitorización de Calidad]
-  H --> I[Alertas: drift / recall-drop]
+  H --> I["Alertas: drift / recall-drop"]
   I --> G
   C --> J[Versioning de modelo]
   J --> D
   subgraph Seguridad
     K[Control de acceso]
-    L[Cifrado at-rest/in-transit]
+    L["Cifrado at-rest/in-transit"]
     M[Protección contra poisoning]
   end
   E --- K

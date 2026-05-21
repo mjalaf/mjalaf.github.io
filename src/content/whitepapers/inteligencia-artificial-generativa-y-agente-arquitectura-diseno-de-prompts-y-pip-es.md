@@ -92,12 +92,12 @@ En resumen, tokenización y embeddings son las bases que transforman texto discr
 ```mermaid
 flowchart LR
   A[Texto crudo] --> B(Tokenización)
-  B --> B1[Char | Word | Subword | Byte-BPE]
+  B --> B1["Char | Word | Subword | Byte-BPE"]
   B1 --> C[IDs de tokens]
   C --> D(Embeddings lookup)
-  D --> E[Vectores (d-dimensionales)]
-  E --> F[Operaciones: atención, similarity search, pooling]
-  F --> G[Aplicaciones: RAG, clasificación, generación]
+  D --> E["Vectores (d-dimensionales)"]
+  E --> F["Operaciones: atención, similarity search, pooling"]
+  F --> G["Aplicaciones: RAG, clasificación, generación"]
   style B1 fill:#f9f,stroke:#333,stroke-width:1px
   style E fill:#bbf,stroke:#333,stroke-width:1px
   style F fill:#bfb,stroke:#333,stroke-width:1px
@@ -184,13 +184,13 @@ flowchart LR
     D2 --> D3[Dropout]
     D3 --> D4[Residual Add]
     D4 --> D5[LayerNorm]
-    D5 --> D6[Feed-Forward (d_ff)]
+    D5 --> D6["Feed-Forward (d_ff)"]
     D6 --> D7[Dropout]
     D7 --> D8[Residual Add]
   end
   D --> E[Final LayerNorm]
-  E --> F[Output Linear / Softmax]
-  F --> G[Logits / Predictions]
+  E --> F["Output Linear / Softmax"]
+  F --> G["Logits / Predictions"]
 ```
 
 *Diagrama: Flujo de atención entre tokens (secuencia)*
@@ -327,17 +327,17 @@ Se incluye un diagrama mermaid que muestra un flujo de diseño de prompt estruct
 
 ```mermaid
 flowchart LR
-  A[User query] --> B[Retriever: search vector DB]
+  A[User query] --> B["Retriever: search vector DB"]
   B --> C[Top-K documents]
-  C --> D[Context builder: select + truncate]
-  D --> E[Assemble prompt:\n(system role + examples + context + user query + instructions)]
-  E --> F[LLM invocation (CoT optional)]
-  F --> G[Post-process: parse JSON, validate schema]
+  C --> D["Context builder: select + truncate"]
+  D --> E["Assemble prompt:\n(system role + examples + context + user query + instructions)"]
+  E --> F["LLM invocation (CoT optional)"]
+  F --> G["Post-process: parse JSON, validate schema"]
   G --> H{Is answer complete?}
-  H -- no --> I[Follow-up subprompt / call tool]
+  H -- no --> I["Follow-up subprompt / call tool"]
   I --> F
   H -- yes --> J[Return to user]
-  G --> K[Update memory: compressed summary]
+  G --> K["Update memory: compressed summary"]
   K --> L[Next turn uses updated memory]
 ```
 
@@ -420,18 +420,18 @@ La adopción de agentes exige diseño defensivo: seguridad, observabilidad y lí
 
 ```mermaid
 flowchart LR
-  UI[Usuario / API] -->|input| Orchestrator[Orquestador / Planner]
-  Orchestrator --> LLM[LLM (reasoner)]
+  UI["Usuario / API"] -->|input| Orchestrator["Orquestador / Planner"]
+  Orchestrator --> LLM["LLM (reasoner)"]
   LLM -->|uses| PromptManager[Gestor de prompts]
-  LLM -->|queries| Retriever[Retriever / Vector DB (RAG)]
-  Retriever --> VectorDB[(Vector DB: Pinecone / Weaviate / Milvus)]
-  LLM -->|decide actions| Toolset[Herramientas / Connectors (APIs, DB, Infra)]
-  Toolset --> External[Servicios externos / Infra]
-  Orchestrator --> Memory[Memoria (short/long term)]
+  LLM -->|queries| Retriever["Retriever / Vector DB (RAG)"]
+  Retriever --> VectorDB["(Vector DB: Pinecone / Weaviate / Milvus)"]
+  LLM -->|decide actions| Toolset["Herramientas / Connectors (APIs, DB, Infra)"]
+  Toolset --> External["Servicios externos / Infra"]
+  Orchestrator --> Memory["Memoria (short/long term)"]
   Memory --> Retriever
-  Toolset --> Validator[Verificador / Guardrails]
+  Toolset --> Validator["Verificador / Guardrails"]
   Validator --> Orchestrator
-  Observability[Logging / Telemetría] -.-> Orchestrator
+  Observability["Logging / Telemetría"] -.-> Orchestrator
   Observability -.-> LLM
   Observability -.-> Toolset
 ```
@@ -440,13 +440,13 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-  A[Evento / Usuario] --> B[Observación / Parse]
-  B --> C[Retriever (RAG) → contexto]
-  C --> D[Planner / LLM genera plan]
+  A["Evento / Usuario"] --> B["Observación / Parse"]
+  B --> C["Retriever (RAG) → contexto"]
+  C --> D["Planner / LLM genera plan"]
   D --> E{¿Se requiere acción externa?}
   E -- Sí --> F[Ejecutor de herramientas]
   F --> G[Resultado de la acción]
-  G --> H[Validator / Checks]
+  G --> H["Validator / Checks"]
   H --> I[Actualizar memoria]
   I --> J[Respuesta al usuario]
   E -- No --> I
@@ -512,17 +512,17 @@ A continuación hay un ejemplo concreto (Python + LangChain + FAISS) que ilustra
 
 ```mermaid
 flowchart TD
-  A[Usuario / Cliente] -->|consulta| API_Gateway[API Gateway]
+  A["Usuario / Cliente"] -->|consulta| API_Gateway[API Gateway]
   API_Gateway --> Retrieval[Retrieval Layer]
-  Retrieval --> VectorDB[(Vector DB\nFAISS / Pinecone / Milvus)]
-  Retrieval --> Reranker[Reranker (cross-encoder)]
+  Retrieval --> VectorDB["(Vector DB\nFAISS / Pinecone / Milvus)"]
+  Retrieval --> Reranker["Reranker (cross-encoder)"]
   Reranker --> PromptAssembler[Prompt Assembler]
   PromptAssembler --> LLM[LLM Generativo]
-  VectorDB -->|metadatos| MetadataStore[(Metadata DB)]
+  VectorDB -->|metadatos| MetadataStore["(Metadata DB)"]
   LLM -->|respuesta| API_Gateway
   API_Gateway --> Usuario
   subgraph Ingest
-    D[Extractor (PDF/HTML)] --> Splitter[Chunker]
+    D["Extractor (PDF/HTML)"] --> Splitter[Chunker]
     Splitter --> Embeddings[Embeddings Model]
     Embeddings --> VectorDB
     Embeddings --> MetadataStore
@@ -534,16 +534,16 @@ flowchart TD
 ```mermaid
 flowchart LR
   user[User Query] --> embq[Embed Query]
-  embq --> search[Vector Search (k-NN)]
+  embq --> search["Vector Search (k-NN)"]
   search --> retrieve[Retrieve top_k passages]
-  retrieve --> rerank[Rerank / Filter]
+  retrieve --> rerank["Rerank / Filter"]
   rerank --> assemble[Assemble Context + Prompt]
   assemble --> llm[Call LLM]
   llm --> resp[Response with citations]
   resp --> user
   subgraph offline
     docs[Documents] --> chunk[Chunking]
-    chunk --> embed_docs[Embed & Index]
+    chunk --> embed_docs["Embed & Index"]
     embed_docs --> VectorDB
   end
   VectorDB --> search
@@ -632,13 +632,13 @@ En resumen, LangChain reduce la complejidad al ofrecer componentes reutilizables
 ```mermaid
 flowchart LR
   User[Usuario]
-  API[API Service / App]
+  API["API Service / App"]
   Orchestrator[LangChain Orchestrator]
   Retriever[Retriever]
-  VectorDB[Pinecone / Weaviate / FAISS]
+  VectorDB["Pinecone / Weaviate / FAISS"]
   Embeddings[Embeddings Service]
-  LLM[LLM Provider (OpenAI / Anthropic / Mistral)]
-  Reranker[Reranker (optional)]
+  LLM["LLM Provider (OpenAI / Anthropic / Mistral)"]
+  Reranker["Reranker (optional)"]
 
   User --> API
   API --> Orchestrator
@@ -769,20 +769,20 @@ Si tu caso de uso exige comprobabilidad y baja tolerancia al error, comienza con
 
 ```mermaid
 flowchart TD
-    A[Inicio: evaluar requisitos] --> B{¿Alta necesidad de verificabilidad?}
-    B -- Sí --> C[Reglas + Search / Motor de reglas]
+    A["Inicio: evaluar requisitos"] --> B{¿Alta necesidad de verificabilidad?}
+    B -- Sí --> C["Reglas + Search / Motor de reglas"]
     B -- No --> D{¿Conocimiento dinámico o gran corpus?}
-    D -- Sí --> E[RAG / Retrieval + LLM]
+    D -- Sí --> E["RAG / Retrieval + LLM"]
     D -- No --> F{¿Tarea creativa o conversacional libre?}
-    F -- Sí --> G[LLM puro (posible finetune)]
+    F -- Sí --> G["LLM puro (posible finetune)"]
     F -- No --> H{¿SLO de latencia estricto?}
-    H -- Sí --> I[Hybrid lightweight: small LLM + cache]
+    H -- Sí --> I["Hybrid lightweight: small LLM + cache"]
     H -- No --> E
     C --> Z[Considerar pruebas y verificación humana]
     E --> Z
     G --> Z
     I --> Z
-    Z --> K[Desplegar con observabilidad, versionado de prompts y pruebas adversariales]
+    Z --> K["Desplegar con observabilidad, versionado de prompts y pruebas adversariales"]
 ```
 
 ## Conclusión

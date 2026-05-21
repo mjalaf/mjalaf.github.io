@@ -94,18 +94,18 @@ Si con incrementos de `-c` y `-j` observas que throughput se estabiliza o latenc
 
 ```mermaid
 flowchart LR
-  Client[Clients / Connections] -->|queries| Postgres[PostgreSQL single node]
+  Client["Clients / Connections"] -->|queries| Postgres[PostgreSQL single node]
   Postgres --> CPU[CPU cores]
-  Postgres --> Memory[shared_buffers / OS cache]
-  Postgres --> Disk[Storage (WAL & data) IOPS/Latency]
-  Postgres --> Locks[Locks / LWLocks / Contention]
-  Postgres --> Maintenance[VACUUM / Checkpoints]
-  CPU --> Bottleneck[(Bottleneck)]
+  Postgres --> Memory["shared_buffers / OS cache"]
+  Postgres --> Disk["Storage (WAL & data) IOPS/Latency"]
+  Postgres --> Locks["Locks / LWLocks / Contention"]
+  Postgres --> Maintenance["VACUUM / Checkpoints"]
+  CPU --> Bottleneck["(Bottleneck)"]
   Memory --> Bottleneck
   Disk --> Bottleneck
   Locks --> Bottleneck
   Maintenance --> Bottleneck
-  Bottleneck -->|symptom| Latency[Increased latency / failed SLA]
+  Bottleneck -->|symptom| Latency["Increased latency / failed SLA"]
   Bottleneck -->|symptom| Throughput[Throughput cap]
   subgraph Notes
     direction LR
@@ -195,19 +195,19 @@ En la siguiente sección entraremos en los detalles internos de cada producto (C
 flowchart LR
   Client[Client]
   subgraph Control Plane
-    Coord[Coordinator / Query Planner]
+    Coord["Coordinator / Query Planner"]
   end
   subgraph Cluster
     subgraph NodeA
-      ShardA1[Shard A1 (leader)]
+      ShardA1["Shard A1 (leader)"]
       ReplicaA2[Replica A2]
     end
     subgraph NodeB
-      ShardB1[Shard B1 (leader)]
+      ShardB1["Shard B1 (leader)"]
       ReplicaB2[Replica B2]
     end
     subgraph NodeC
-      ShardC1[Shard C1 (leader)]
+      ShardC1["Shard C1 (leader)"]
       ReplicaC2[Replica C2]
     end
   end
@@ -365,10 +365,10 @@ El plan muestra envío de subconsultas a los workers con agregación parcial en 
 ```mermaid
 flowchart LR
   Client[Client]
-  Coordinator[Coordinator (Postgres + citus)]
-  Worker1[Worker 1 (Postgres + citus)]
-  Worker2[Worker 2 (Postgres + citus)]
-  Worker3[Worker 3 (Postgres + citus)]
+  Coordinator["Coordinator (Postgres + citus)"]
+  Worker1["Worker 1 (Postgres + citus)"]
+  Worker2["Worker 2 (Postgres + citus)"]
+  Worker3["Worker 3 (Postgres + citus)"]
 
   Client -->|SQL| Coordinator
   Coordinator -->|metadata/catalog| Worker1
@@ -557,7 +557,7 @@ flowchart LR
 ```mermaid
 flowchart LR
   client[Client Write]
-  leader[Leader (Raft)]
+  leader["Leader (Raft)"]
   follower1[Follower 1]
   follower2[Follower 2]
 
@@ -836,10 +836,10 @@ flowchart TD
   B -->|Eventual / Alta concurrencia local| Citus2[Considera Citus o sharding a nivel app]
   D -->|Sí| YB[YugabyteDB o CockroachDB]
   D -->|No, single region| Cock[CockroachDB o Yugabyte por HA]
-  YB --> End1([Recomendado para transacciones globales, requiere Raft])
+  YB --> End1("[Recomendado para transacciones globales, requiere Raft]")
   Cock --> End2([Recomendado para OLTP global con zona-locality y follower reads])
-  Citus --> End3([Recomendado para OLAP, multi-tenant y compatibilidad Postgres])
-  Citus2 --> End4([Si preservas PG-extensions, preferir Citus])
+  Citus --> End3("[Recomendado para OLAP, multi-tenant y compatibilidad Postgres]")
+  Citus2 --> End4("[Si preservas PG-extensions, preferir Citus]")
   Start --> Ops{Capacidad operativa}
   Ops -->|Baja| Citus
   Ops -->|Alta| YB

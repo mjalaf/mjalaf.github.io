@@ -175,13 +175,13 @@ Cómo configurarlo:
 
 ```mermaid
 flowchart LR
-  A[Aplicación Ejecutando] --> B[Safe-point: hilos se cooperan]
+  A[Aplicación Ejecutando] --> B["Safe-point: hilos se cooperan"]
   B --> C[Scan Roots]
-  C --> D[Mark/Trace (marcado de objetos alcanzables)]
+  C --> D["Mark/Trace (marcado de objetos alcanzables)"]
   D --> E{Background GC?}
-  E -- Sí --> F[Mark concurrente (app continúa)]
+  E -- Sí --> F["Mark concurrente (app continúa)"]
   E -- No --> G[Mark STW]
-  F & G --> H[Evacuate / Compact / Copy]
+  F & G --> H["Evacuate / Compact / Copy"]
   H --> I[Fixup referencias]
   I --> J[Reclaim memoria]
   J --> K[Finalizers encolados]
@@ -199,15 +199,15 @@ flowchart TB
     H[Managed Heaps]
     subgraph Heaps
       direction LR
-      Heap1[Heap (CPU0)]
-      Heap2[Heap (CPU1)]
-      HeapN[Heap (CPUN)]
+      Heap1["Heap (CPU0)"]
+      Heap2["Heap (CPU1)"]
+      HeapN["Heap (CPUN)"]
     end
   end
 
-  Heap1 --> S1[Segment: Gen0 (ephemeral)]
-  Heap1 --> S2[Segment: Gen1]
-  Heap1 --> S3[Segment: Gen2]
+  Heap1 --> S1["Segment: Gen0 (ephemeral)"]
+  Heap1 --> S2["Segment: Gen1"]
+  Heap1 --> S3["Segment: Gen2"]
   Heap1 --> LOH1[Large Object Heap]
 
   click LOH1 "https://docs.microsoft.com/dotnet/standard/garbage-collection/large-object-heap" "LOH docs"
@@ -307,7 +307,7 @@ flowchart LR
   C -->|Survive| D[Gen 2]
   D -->|Full GC| X
 
-  A2[Allocate large object (>85kB)] --> LOH[Large Object Heap (LOH)]
+  A2["Allocate large object (>85kB)"] --> LOH["Large Object Heap (LOH)"]
   LOH -->|Considered gen2 for lifetime| D
   LOH -->|Fragmentation| Frag[LOH fragmentation]
 
@@ -606,20 +606,20 @@ Configurar en .NET Core se hace via runtimeconfig.json (propiedades `System.GC.S
 
 ```mermaid
 flowchart TD
-  A[¿Alta tasa de allocations?] -->|Sí| B[¿Mayoría <85KB?]
-  A -->|No| C[¿Pausas/latencia visibles?]
-  B -->|Sí| D[Usa Span/ArrayPool/ValueTask; optimiza hot-path]
-  B -->|No| E[Evita LOH allocations repetidas; usa ArrayPool o memoria nativa]
-  C -->|Sí| F[Considera Server GC / ajustar LatencyMode / NoGCRegion]
-  C -->|No| G[Monitorear y perfilar (dotnet-counters, PerfView)]
-  D --> H[Revisar closure/boxing/LINQ allocations]
+  A[¿Alta tasa de allocations?] -->|Sí| B["¿Mayoría <85KB?"]
+  A -->|No| C["¿Pausas/latencia visibles?"]
+  B -->|Sí| D["Usa Span/ArrayPool/ValueTask; optimiza hot-path"]
+  B -->|No| E["Evita LOH allocations repetidas; usa ArrayPool o memoria nativa"]
+  C -->|Sí| F["Considera Server GC / ajustar LatencyMode / NoGCRegion"]
+  C -->|No| G["Monitorear y perfilar (dotnet-counters, PerfView)"]
+  D --> H["Revisar closure/boxing/LINQ allocations"]
   E --> I[Pool para objetos grandes o fragmentación controlada]
   F --> J[Probar en ambiente con carga real y medir pausas]
   H --> K[Implementar cambios y re-probar]
   I --> K
   J --> K
   G --> K
-  K[Iterar: perfilar -> cambiar -> validar]
+  K["Iterar: perfilar -> cambiar -> validar"]
 ```
 
 ## Limitations, Tradeoffs, and Alternatives
@@ -686,15 +686,15 @@ Evita el bypass prematuro: medir (PerfView, dotnet-counters, dotnet-trace) y só
 ```mermaid
 flowchart LR
   A[Aplicación .NET] --> B[GC administrado]
-  B --> B1[Server / Background]
-  B --> B2[NoGCRegion / Latency Modes]
+  B --> B1["Server / Background"]
+  B --> B2["NoGCRegion / Latency Modes"]
   A --> C[Complementos]
-  C --> C1[ArrayPool / MemoryPool / Span]
-  C --> C2[Memoria Nativa (Marshal, NativeMemory)]
-  C --> C3[Allocators nativos (jemalloc/mimalloc)]
+  C --> C1["ArrayPool / MemoryPool / Span"]
+  C --> C2["Memoria Nativa (Marshal, NativeMemory)"]
+  C --> C3["Allocators nativos (jemalloc/mimalloc)"]
   A --> D[Otras plataformas]
-  D --> D1[JVM (G1/ZGC/Shenandoah)]
-  D --> D2[Rust (Ownership, sin GC)]
+  D --> D1["JVM (G1/ZGC/Shenandoah)"]
+  D --> D2["Rust (Ownership, sin GC)"]
   B1 -. tradeoff .-> B2
   C2 -. riesgo: fugas/seguridad .-> B
   D1 -. lección: region-based concurrent compaction .-> B
