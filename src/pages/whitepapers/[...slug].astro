@@ -1,0 +1,38 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
+	const papers = await getCollection('whitepapers');
+	return papers.map((paper) => ({
+		params: { slug: paper.id },
+		props: paper,
+	}));
+}
+type Props = CollectionEntry<'whitepapers'>;
+
+const paper = Astro.props;
+const { Content } = await render(paper);
+---
+
+<BlogPost
+	title={paper.data.title}
+	description={paper.data.description}
+	pubDate={paper.data.pubDate}
+	updatedDate={paper.data.updatedDate}
+	heroImage={paper.data.heroImage}
+	tags={paper.data.tags}
+>
+	{(paper.data.author || paper.data.version || paper.data.pdfUrl) && (
+		<div class="not-prose mb-6 flex flex-wrap items-center gap-3 text-sm text-zinc-400">
+			{paper.data.author && <span>By <span class="text-zinc-300">{paper.data.author}</span></span>}
+			{paper.data.version && <span class="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300">v{paper.data.version}</span>}
+			{paper.data.pdfUrl && (
+				<a href={paper.data.pdfUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 rounded-full bg-blue-600/20 px-3 py-1 text-xs text-blue-300 no-underline hover:bg-blue-600/30 transition">
+					Download PDF
+				</a>
+			)}
+		</div>
+	)}
+	<Content />
+</BlogPost>

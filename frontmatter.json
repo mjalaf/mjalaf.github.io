@@ -44,28 +44,13 @@
       ]
     }
   ],
-  "frontMatter.taxonomy.tags": [
-    "algorithms",
-    "architecture",
-    "azure",
-    "backstage",
-    "big-o",
-    "cosmosdb",
-    "devops",
-    "english",
-    "español",
-    "iot",
-    "javascript",
-    "linux",
-    "monitoring",
-    "observability",
-    "platform-engineering"
-  ],
   "frontMatter.content.pageFolders": [
     {
       "title": "Blog",
       "path": "[[workspace]]/src/content/blog",
-      "contentTypes": ["blog"],
+      "contentTypes": [
+        "blog"
+      ],
       "defaultLocale": ""
     }
   ],

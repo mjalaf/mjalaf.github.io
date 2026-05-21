@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const whitepapers = (await getCollection('whitepapers')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Whitepapers - ${SITE_TITLE}`}
+			description="In-depth whitepapers on architecture, cloud, and engineering practices by Martin Jalaf."
+		/>
+	</head>
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<Header />
+		<main role="main" class="max-w-6xl mx-auto">
+			<!-- Hero Section -->
+			<section class="flex flex-col items-start py-16 max-xl:px-4 max-lg:px-4 max-sm:px-4 max-sm:items-center max-sm:text-center">
+				<h1 class="text-4xl font-bold tracking-tight text-zinc-300 max-sm:text-2xl">
+					<span class="text-blue-500">Whitepapers</span>
+				</h1>
+				<p class="mt-6 text-lg text-zinc-400 max-w-2xl max-sm:mt-3 max-sm:text-base">
+					Long-form, in-depth explorations of architecture, cloud, and engineering practices.
+				</p>
+			</section>
+
+			<!-- Whitepapers Grid -->
+			<section class="mx-auto max-w-7xl py-10 pt-5 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4 pb-16">
+				{whitepapers.length === 0 ? (
+					<p class="text-zinc-400">No whitepapers published yet. Check back soon.</p>
+				) : (
+					<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+						{
+							whitepapers.map((paper) => (
+								<article class="group relative w-full rounded-2xl bg-zinc-900/60 p-6 transition hover:bg-zinc-900/80 hover:shadow-xl hover:shadow-black/30">
+									<a href={`/whitepapers/${paper.id}/`} class="absolute inset-0 z-10 rounded-2xl" aria-label={paper.data.title}></a>
+									<div class="relative z-20 pointer-events-none">
+										<div class="mb-3 flex items-center gap-3 text-sm text-zinc-400">
+											<FormattedDate date={paper.data.pubDate} />
+											{paper.data.version && (
+												<span class="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300">v{paper.data.version}</span>
+											)}
+										</div>
+										<h2 class="text-xl font-semibold leading-snug text-zinc-100 transition group-hover:text-violet-400">
+											{paper.data.title}
+										</h2>
+										{paper.data.description && (
+											<p class="mt-3 text-sm leading-relaxed text-zinc-400">
+												{paper.data.description.slice(0, 140)}{paper.data.description.length > 140 ? "..." : ""}
+											</p>
+										)}
+										{paper.data.tags && paper.data.tags.length > 0 && (
+											<div class="mt-4 flex flex-wrap gap-2 pointer-events-auto">
+												{paper.data.tags.slice(0, 3).map((tag) => (
+													<span class="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300">#{tag}</span>
+												))}
+											</div>
+										)}
+									</div>
+								</article>
+							))
+						}
+					</div>
+				)}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

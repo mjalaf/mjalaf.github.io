@@ -35,4 +35,20 @@ const snippets = defineCollection({
 	}),
 });
 
-export const collections = { blog, projects, snippets };
+const whitepapers = defineCollection({
+	loader: glob({ base: './src/content/whitepapers', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: image().optional(),
+			tags: z.array(z.string()).optional(),
+			author: z.string().optional(),
+			version: z.string().optional(),
+			pdfUrl: z.string().url().optional(),
+		}),
+});
+
+export const collections = { blog, projects, snippets, whitepapers };
