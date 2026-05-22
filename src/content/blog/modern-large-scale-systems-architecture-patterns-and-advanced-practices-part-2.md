@@ -190,9 +190,9 @@ See the minimal example of transactional producer and consumer with manual commi
 ```mermaid
 flowchart LR
   Producers["Producers / Ingest"]
-  Ingest["Ingestion Layer\n("Kafka / Kinesis / PubSub")"]
-  StreamProc["Stream Processing\n("Stateless & Stateful Operators")"]
-  Checkpoint["Checkpointing & State Backend\n(RocksDB + Changelog)"]
+  Ingest["Ingestion Layer<br/>(Kafka / Kinesis / PubSub)"]
+  StreamProc["Stream Processing<br/>(Stateless & Stateful Operators)"]
+  Checkpoint["Checkpointing & State Backend<br/>(RocksDB + Changelog)"]
   OLAP["OLAP / Data Warehouse"]
   Serving["Serving Stores / Materialized Views"]
   Replay["Replay / Reprocessing"]
@@ -303,23 +303,16 @@ flowchart LR
     C[Batch ingestion] --> D["Batch layer (recompute)"]
     B --> E[Serving layer]
     D --> E
-    style Lambda fill:#f9f,stroke:#333,stroke-width:1px
   end
 
   subgraph Kappa
     F["Ingestion (stream/log)"] --> G["Streaming processor (single path)"]
     G --> H["Materialized views / Serving"]
-    style Kappa fill:#9ff,stroke:#333,stroke-width:1px
   end
 
   B ---|low latency| E
   D ---|accurate history| E
   G ---|low latency + replay| H
-
-  Lambda --- Kappa
-  click B "" "Speed layer = low latency path"
-  click D "" "Batch layer = recompute for correctness"
-  click G "" "Kappa = stream first, use replays for corrections"
 ```
 
 *Diagram: Data flow: Data Lake integrated with Data Warehouse*

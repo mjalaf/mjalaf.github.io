@@ -164,14 +164,14 @@ flowchart LR
     Shard1["Shard 1<br/>Primary (AZ1)<br/>Replica (AZ2)"]
     Shard2["Shard 2<br/>Primary (AZ2)<br/>Replica (AZ1)"]
     ShardN["Shard N<br/>Primary (AZ3)<br/>Replica (AZ1)"]
+    Shard1_note["Replication factor = 3 (example)"]
+    Shard2_note["Reads from local replicas for low latency"]
+    Shard1 -.- Shard1_note
+    Shard2 -.- Shard2_note
   end
   ShardRouter-->Shard1
   ShardRouter-->Shard2
   ShardRouter-->ShardN
-  Shard1_note["Replication factor = 3 (example)"]
-  Shard1 -.- Shard1_note
-  Shard2_note["Reads from local replicas for low latency"]
-  Shard2 -.- Shard2_note
 ```
 
 *Diagram: Event flow in CQRS and Event Sourcing*

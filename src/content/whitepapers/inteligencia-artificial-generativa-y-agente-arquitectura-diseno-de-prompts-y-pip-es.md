@@ -330,7 +330,7 @@ flowchart LR
   A[User query] --> B["Retriever: search vector DB"]
   B --> C[Top-K documents]
   C --> D["Context builder: select + truncate"]
-  D --> E["Assemble prompt:\n(system role + examples + context + user query + instructions)"]
+  D --> E["Assemble prompt:<br/>(system role + examples + context + user query + instructions)"]
   E --> F["LLM invocation (CoT optional)"]
   F --> G["Post-process: parse JSON, validate schema"]
   G --> H{Is answer complete?}
