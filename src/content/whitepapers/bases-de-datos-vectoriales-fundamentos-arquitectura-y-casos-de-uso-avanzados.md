@@ -176,7 +176,7 @@ flowchart LR
   D --> D3["Metadata DB: IDs, schema"]
   C -->|consulta| E[Query encoder]
   E --> F["Search engine (ANN)"]
-  F --> G[Ranking / Re-rank (optional)
+  F --> G["Ranking / Re-rank (optional)"]
   G --> H["Application: search results / recommender"]
 
   style B fill:#f9f,stroke:#333,stroke-width:1px

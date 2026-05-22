@@ -109,7 +109,7 @@ flowchart LR
   Bottleneck -->|symptom| Throughput[Throughput cap]
   subgraph Notes
     direction LR
-    note1([Connection pool (pgbouncer) mitigates but doesn't remove core limits])
+    note1(["Connection pool (pgbouncer) mitigates but doesn#39;t remove core limits"])
   end
   Client --- note1
 ```
@@ -546,12 +546,9 @@ flowchart LR
   M3 -->|metadata| T3
 
   %% Tablets distributed across TServers
-  T1 -- Tablet A (leader) --> T2
-  T1 -- Tablet B (follower) --> T3
-  T2 -- Tablet C (leader) --> T1
-
-  click T1 "" "TServer: SQL + DocDB"
-  click M1 "" "Masters: cluster metadata & placement"
+  T1 -->|"Tablet A (leader)"| T2
+  T1 -->|"Tablet B (follower)"| T3
+  T2 -->|"Tablet C (leader)"| T1
 ```
 
 *Diagrama: Raft consensus in YugabyteDB (tablet view)*
@@ -660,16 +657,16 @@ flowchart LR
     node3(Node C)
   end
 
-  subgraph Range1 [Range R1]
-    R1L(Replica A - leader)
-    R1B(Replica B)
-    R1C(Replica C)
+  subgraph Range1 ["Range R1"]
+    R1L(["Replica A - leader"])
+    R1B(["Replica B"])
+    R1C(["Replica C"])
   end
 
-  subgraph Range2 [Range R2]
-    R2A(Replica A)
-    R2L(Replica B - leader)
-    R2C(Replica C)
+  subgraph Range2 ["Range R2"]
+    R2A(["Replica A"])
+    R2L(["Replica B - leader"])
+    R2C(["Replica C"])
   end
 
   node1 --> R1L
@@ -680,7 +677,6 @@ flowchart LR
   node2 --> R2L
   node3 --> R2C
 
-  click R1L "https://www.cockroachlabs.com/docs/" "Más info"
   classDef leader fill:#f96,stroke:#333,stroke-width:2px;
   class R1L,R2L leader
 ```
@@ -693,10 +689,11 @@ sequenceDiagram
   participant Coordinator
   participant RangeA
   participant RangeB
+  participant RangeCoord
   participant RaftLeaderA
   participant RaftLeaderB
 
-  Client->>Coordinator: BEGIN; write keyA, write keyB
+  Client->>Coordinator: BEGIN, write keyA, write keyB
   Coordinator->>RangeA: send write request
   RangeA->>RaftLeaderA: replicate via Raft
   RaftLeaderA-->>RangeA: commit intent
@@ -709,7 +706,7 @@ sequenceDiagram
   Coordinator->>RaftLeaderB: finalize intents
   RaftLeaderA-->>Coordinator: ack
   RaftLeaderB-->>Coordinator: ack
-  Coordinator->>Client: COMMIT complete (external consistency assured)
+  Coordinator->>Client: COMMIT complete - external consistency assured
 ```
 
 ## Limitations and Tradeoffs of Each Solution
