@@ -2,184 +2,400 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+
 import { SITE_TITLE } from '../consts';
 
 const faqs = [
-	{
-		question: "What technologies do you work with?",
-		answer:
-			"I started with Java and I still consider myself a Java lover. Over the years I expanded into .NET, Azure, cloud-native architectures, identity (Microsoft Entra), APIs, and distributed systems. I enjoy designing pragmatic architectures that actually survive production.",
-	},
-	{
-		question: "What is your current role?",
-		answer:
-			"I'm a solution Architect at Microsoft. I worked for many years primarily with U.S. customers, and more recently I’ve been focusing strongly on LATAM customers, helping organizations modernize platforms and move confidently to the cloud.",
-	},
-	{
-		question: "Are you still hands-on?",
-		answer:
-			"Yes. Architecture without code feels incomplete to me. I enjoy staying close to implementation, exploring AI-driven workflows, and continuously learning new technologies.",
-	},
-	{
-		question: "What motivates you?",
-		answer:
-			"I genuinely love technological challenges. I’m passionate about technology, curious by nature, and I’m always trying to learn something new.",
-	},
-	{
-		question: "Which languages do you speak?",
-		answer:
-			"Spanish (native), English (advanced), Portuguese (intermediate).",
-	},
+    {
+        question: 'What technologies and architecture domains do you focus on?',
+        answer:
+            'I started my engineering journey with Java, which remains foundational to how I think about object-oriented design, modularity, and distributed systems. Over the years, my focus expanded across .NET, Azure, event-driven architectures, distributed databases, Kubernetes, enterprise integration, and Microsoft Entra. I design pragmatic and resilient systems intended to survive the realities of production.',
+    },
+    {
+        question: 'What is your current role and focus?',
+        answer:
+            'I am a Solution Architect at Microsoft, frequently serving as lead architect on complex enterprise initiatives. My work focuses on cloud modernization, platform architecture, distributed systems, enterprise integration, and business-critical migrations across Latin America and North America.',
+    },
+    {
+        question: 'Are you still hands-on?',
+        answer:
+            'Always.  An architect detached from implementation can quickly lose touch with reality. I stay close to code and infrastructure by building prototypes, testing cloud-native patterns, exploring AI-assisted development workflows, and validating architectural decisions through experimentation.',
+    },
+    {
+        question: 'How do you approach AI?',
+        answer:
+            'AI is one of the most powerful tools I have encountered during my career. I use it in both professional and personal projects, and I continuously experiment with new models, agents, and AI-assisted development workflows. I am genuinely impressed by its ability to accelerate learning, analysis, development, and experimentation. However, I do not see AI as a replacement for human experience or judgment—I see it as an amplifier of them. AI can make capable people dramatically more effective, but the quality of its output still depends on the context, critical thinking, judgment, experience, and accountability of the person using it.',
+    },
+    {
+        question: 'What drives your engineering philosophy?',
+        answer:
+            'A passion for solving complex problems and a deep respect for production stability. I believe the best architectures balance business continuity, simplicity, maintainability, resilience, and the ability to evolve over time.',
+    },
+    {
+        question: 'Which languages do you speak?',
+        answer:
+            'Spanish (native), English (professional proficiency), and Portuguese (working proficiency).',
+    },
 ];
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={`About - ${SITE_TITLE}`} description="About Martin Jalaf - Solution Architect" />
-	</head>
-	<body>
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<Header />
-		<main role="main" class="max-w-6xl mx-auto">
+<html lang="en" class="bg-black">
+    <head>
+        <BaseHead
+            title={`About - ${SITE_TITLE}`}
+            description="About Martin Jalaf, Solution Architect specializing in cloud modernization, distributed systems, enterprise integration, and resilient platforms."
+        />
+    </head>
 
-			<!-- Hero Section -->
-			<section class="flex flex-col items-start py-16 max-xl:px-4 max-lg:px-4 max-sm:px-4 max-sm:items-center max-sm:text-center">
-				<h1 class="text-4xl font-bold tracking-tight text-zinc-300 max-sm:text-2xl">
-					About <span class="text-blue-500">Martin Jalaf</span>
-				</h1>
-				<p class="mt-6 text-lg text-zinc-400 max-w-2xl max-sm:mt-3 max-sm:text-base">
-					Argentinian living in Chile. Solution Architect at Microsoft.
-					Java lover. Curious mind. Always learning.
-					People call me "Tincho" or sometimes "Marto".
+    <body
+        class="min-h-screen bg-black text-neutral-100 antialiased selection:bg-blue-600 selection:text-white"
+    >
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS"
+                height="0"
+                width="0"
+                title="Google Tag Manager"
+                style="display:none;visibility:hidden"
+            ></iframe>
+        </noscript>
+
+        <Header />
+
+        <main class="mx-auto max-w-6xl px-4 sm:px-6 xl:px-0">
+            <!-- Hero -->
+            <section
+                aria-labelledby="about-title"
+                class="flex flex-col items-start py-16 max-sm:items-center max-sm:py-12 max-sm:text-center"
+            >
+                <h1
+                    id="about-title"
+                    class="text-4xl font-bold tracking-tight text-white max-sm:text-3xl"
+                >
+                    About
+                    <span class="text-blue-500">Martin Jalaf</span>
+                </h1>
+
+                <p
+                    class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-400 max-sm:mt-4 max-sm:text-base"
+                >
+                    Solution Architect at Microsoft, specializing in cloud
+                    modernization, distributed systems, enterprise integration,
+                    and resilient platforms. Argentinian living in Chile,
+                    lifelong builder, and technology enthusiast. Friends call me
+                    “Tincho.”
+                </p>
+
+                <div class="mt-6 flex flex-wrap gap-4 max-sm:justify-center">
+                    <a
+                        href="https://github.com/mjalaf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="rounded-lg border border-blue-500 px-5 py-2 text-sm font-medium text-blue-500 no-underline transition-colors duration-200 hover:bg-blue-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                    >
+                        GitHub
+                    </a>
+
+                    <a
+                        href="https://www.linkedin.com/in/mjalaf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="rounded-lg border border-blue-500 px-5 py-2 text-sm font-medium text-blue-500 no-underline transition-colors duration-200 hover:bg-blue-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                    >
+                        LinkedIn
+                    </a>
+                </div>
+            </section>
+
+            <hr class="border-neutral-900" />
+
+            <!-- English Career -->
+            <section
+                aria-labelledby="career-title"
+                class="max-w-4xl pt-14"
+            >
+                <p
+                    class="mb-3 text-xs font-semibold uppercase tracking-widest text-blue-400"
+                >
+                    In English
+                </p>
+
+                <h2
+                    id="career-title"
+                    class="text-2xl font-semibold tracking-tight text-white"
+                >
+                    Career & Engineering Journey
+                </h2>
+
+              <div class="mt-6 space-y-5 leading-relaxed text-neutral-400">
+				<p>
+					My interest in software began before my professional career. During my
+					university years, I learned
+					<strong class="font-semibold text-neutral-100">Java</strong>
+					and used it extensively in personal projects. It shaped how I think
+					about object-oriented design, modularity, distributed systems, and
+					maintainable software. Although my career later expanded across
+					different technology ecosystems, Java remains an important part of my
+					engineering foundation.
 				</p>
 
-				<div class="flex flex-row mt-6 gap-4 max-sm:justify-center">
-					<a
-						href="https://github.com/mjalaf"
-						target="_blank"
-						class="flex flex-row w-fit rounded-lg border px-5 py-2 transition-colors duration-300 hover:bg-blue-500 hover:text-white border-blue-500 text-blue-500 no-underline max-sm:px-3 max-sm:text-sm"
-					>
-						GitHub
-					</a>
-					<a
-						href="https://www.linkedin.com/in/mjalaf"
-						target="_blank"
-						class="flex flex-row w-fit rounded-lg border px-5 py-2 transition-colors duration-300 hover:bg-blue-500 hover:text-white border-blue-500 text-blue-500 no-underline max-sm:px-3 max-sm:text-sm"
-					>
-						LinkedIn
-					</a>
-				</div>
-			</section>
-
-			<!-- English Bio -->
-			<section class="max-w-4xl pt-5 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
-				<h2 class="text-2xl font-semibold text-white">🇪n Career</h2>
-
-				<p class="mt-4 text-slate-400">
-					I’ve been in tech since <strong class="text-white">2005</strong>.
-					I started with <strong class="text-white">Java</strong>, and I never really left it.
-					I still consider myself a Java lover — it shaped how I think about
-					object-oriented design, clean code, and long-term maintainability.
+				<p>
+					My professional journey began in
+					<strong class="font-semibold text-neutral-100">2006</strong>
+					at
+					<strong class="font-semibold text-neutral-100">Extenys</strong>,
+					a small technology startup where I worked primarily with
+					<strong class="font-semibold text-neutral-100">
+						Microsoft .NET technologies
+					</strong>.
+					Being part of a small team allowed me to participate in different
+					aspects of software delivery, solve problems directly, and develop a
+					strong sense of adaptability, ownership, and continuous learning.
 				</p>
 
-				<p class="mt-4 text-slate-400">
-					Over time, I expanded into architecture, cloud, and distributed systems.
-					I joined <strong class="text-white">Microsoft</strong> in <strong class="text-white">2012</strong>
-					and spent years working deeply with production environments —
-					debugging dumps, analyzing traces, and solving complex real-world issues.
-					That experience gave me a strong respect for simplicity and resilience.
+				<p>
+					I later joined
+					<strong class="font-semibold text-neutral-100">Accenture</strong>
+					and then
+					<strong class="font-semibold text-neutral-100">Avanade</strong>,
+					where I gained experience working with large organizations, enterprise
+					platforms, and increasingly complex technology environments. These
+					years broadened my perspective beyond application development and
+					introduced me to the technical, organizational, and operational
+					challenges of delivering technology at enterprise scale.
 				</p>
 
-				<p class="mt-4 text-slate-400">
-					Since <strong class="text-white">2016</strong>, I’ve been working as an
-					<strong class="text-white">Solution Architect</strong>.
-					For many years, I worked primarily with U.S. customers across the Americas.
-					More recently, I’ve been increasingly focused on LATAM customers,
-					supporting modernization, cloud adoption, and platform evolution.
+				<p>
+					In
+					<strong class="font-semibold text-neutral-100">2012</strong>,
+					I joined
+					<strong class="font-semibold text-neutral-100">Microsoft</strong>.
+					During my early years, I worked extensively with production
+					environments—analyzing memory dumps, diagnosing performance
+					bottlenecks, and resolving critical live-site incidents. That experience
+					gave me an enduring respect for simplicity, observability, fault
+					tolerance, and operational resilience.
 				</p>
 
-				<p class="mt-4 text-slate-400">
-					I genuinely love technological challenges. I’m passionate about technology,
-					and I’m always trying to learn something new — whether it’s AI agents,
-					cloud architecture patterns, or developer productivity improvements.
+				<p>
+					Today, I work as a
+					<strong class="font-semibold text-neutral-100">
+						Senior Solution Architect at Microsoft
+					</strong>,
+					frequently serving as the lead architect for complex enterprise
+					programs across Latin America and North America. In this role, I define
+					the architectural direction and orchestrate groups of architects,
+					consultants, and specialists, aligning their work across multiple
+					technical domains and delivery streams.
 				</p>
 
-				<p class="mt-4 text-slate-400">
-					Architecture without curiosity becomes static.
-					I prefer to keep building, experimenting, and evolving.
-				</p>
-			</section>
-
-			<section class="max-w-4xl pt-10 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
-				<h2 class="text-2xl font-semibold text-white">Personal</h2>
-				<p class="mt-4 text-slate-400">
-					I’m the father of Mateo and Sofia.
-					Outside of tech, I’m an enthusiastic photographer, trail runner,
-					and sports fan (football/soccer, rugby, and F1).
-				</p>
-			</section>
-
-			<!-- Spanish Bio -->
-			<section class="max-w-4xl pt-10 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
-				<h2 class="text-2xl font-semibold text-white">🇪🇸 Carrera</h2>
-
-				<p class="mt-4 text-slate-400">
-					Soy Martín, argentino viviendo en Chile.
-					Trabajo en tecnología desde el año <strong class="text-white">2005</strong>.
-					Comencé con <strong class="text-white">Java</strong>, tecnología que sigo amando
-					y utilizando como base conceptual para muchas decisiones de arquitectura.
+				<p>
+					My work includes cloud modernization, high-throughput event-driven
+					integrations, business-critical migrations, distributed platforms, and
+					the translation of business strategies into production-ready
+					architectures. Beyond defining the solution, I help teams navigate
+					technical tradeoffs, manage architectural risks, and maintain a
+					coherent direction from early design through implementation.
 				</p>
 
-				<p class="mt-4 text-slate-400">
-					Me sumé a <strong class="text-white">Microsoft</strong> en <strong class="text-white">2012</strong>,
-					donde trabajé durante años en escenarios productivos complejos,
-					resolviendo incidentes y fortaleciendo mis habilidades de troubleshooting.
+				<p>
+					I believe architects need to keep experimenting to stay connected to
+					the realities of technology and implementation. I maintain that
+					connection by exploring AI-assisted workflows, evaluating distributed
+					platforms, building prototypes, and testing new development approaches.
+				</p>
+			</div>
+            </section>
+
+            <!-- English Personal -->
+            <section
+                aria-labelledby="personal-title"
+                class="max-w-4xl pt-14"
+            >
+                <h2
+                    id="personal-title"
+                    class="text-2xl font-semibold tracking-tight text-white"
+                >
+                    Outside the Terminal
+                </h2>
+
+                <p class="mt-5 leading-relaxed text-neutral-400">
+                    I am the proud father of Mateo and Sofia. When I am away
+                    from architecture diagrams and code, you will usually find
+                    me trail running, behind a camera practicing photography,
+                    or following football, rugby, and Formula 1.
+                </p>
+            </section>
+
+            <!-- Spanish Career -->
+            <section
+                aria-labelledby="spanish-career-title"
+                lang="es"
+                class="mt-14 max-w-4xl border-t border-neutral-900 pt-14"
+            >
+                <p
+                    class="mb-3 text-xs font-semibold uppercase tracking-widest text-blue-400"
+                >
+                    En español
+                </p>
+
+                <h2
+                    id="spanish-career-title"
+                    class="text-2xl font-semibold tracking-tight text-white"
+                >
+                    Trayectoria Profesional y Técnica
+                </h2>
+
+				<div class="mt-6 space-y-5 leading-relaxed text-neutral-400">
+				<p>
+					Mi interés por el desarrollo de software comenzó antes de mi carrera
+					profesional. Durante mis años universitarios aprendí
+					<strong class="font-semibold text-neutral-100">Java</strong>
+					y lo utilicé ampliamente en proyectos personales. Esta tecnología
+					influyó en mi forma de pensar sobre el diseño orientado a objetos, la
+					modularidad, los sistemas distribuidos y la construcción de software
+					mantenible. Aunque mi carrera luego se expandió hacia diferentes
+					ecosistemas tecnológicos, Java sigue siendo una parte importante de mi
+					base como ingeniero.
 				</p>
 
-				<p class="mt-4 text-slate-400">
-					Desde <strong class="text-white">2016</strong> me desempeño como
-					<strong class="text-white">Arquitecto de Soluciones</strong>.
-					Durante muchos años trabajé principalmente con clientes de Estados Unidos,
-					y actualmente estoy cada vez más enfocado en clientes de LATAM,
-					apoyando procesos de modernización y adopción de nube.
+				<p>
+					Mi recorrido profesional comenzó en
+					<strong class="font-semibold text-neutral-100">2006</strong>
+					en
+					<strong class="font-semibold text-neutral-100">Extenys</strong>,
+					una pequeña startup tecnológica donde trabajé principalmente con
+					<strong class="font-semibold text-neutral-100">
+						tecnologías Microsoft .NET
+					</strong>.
+					Ser parte de un equipo reducido me permitió participar en distintas
+					etapas de la entrega de software, resolver problemas de manera directa
+					y desarrollar un fuerte sentido de adaptabilidad, responsabilidad y
+					aprendizaje continuo.
 				</p>
 
-				<p class="mt-4 text-slate-400">
-					Me apasionan los desafíos tecnológicos.
-					Siempre estoy intentando aprender algo nuevo.
+				<p>
+					Más adelante me incorporé a
+					<strong class="font-semibold text-neutral-100">Accenture</strong>
+					y posteriormente a
+					<strong class="font-semibold text-neutral-100">Avanade</strong>,
+					donde adquirí experiencia trabajando con grandes organizaciones,
+					plataformas empresariales y entornos tecnológicos cada vez más
+					complejos. Esos años ampliaron mi perspectiva más allá del desarrollo
+					de aplicaciones y me acercaron a los desafíos técnicos, organizacionales
+					y operativos de implementar tecnología a escala empresarial.
 				</p>
-			</section>
 
-			<section class="max-w-4xl pt-10 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
-				<h2 class="text-2xl font-semibold text-white">Personal</h2>
-				<p class="mt-4 text-slate-400">
-					Soy papá de Mateo y Sofia.
-					Me gusta la fotografía, el trail running y mirar deportes,
-					especialmente Fútbol, Rugby y F1.
+				<p>
+					En
+					<strong class="font-semibold text-neutral-100">2012</strong>
+					me incorporé a
+					<strong class="font-semibold text-neutral-100">Microsoft</strong>.
+					Durante mis primeros años trabajé profundamente con entornos
+					productivos: analizando volcados de memoria, diagnosticando problemas
+					de rendimiento y resolviendo incidentes críticos. Esa experiencia me
+					dio un profundo respeto por la simplicidad, la observabilidad, la
+					tolerancia a fallos y la resiliencia operativa.
 				</p>
-			</section>
 
-			<!-- FAQs -->
-			<section class="max-w-4xl py-15 max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4">
-				<header class="mb-10">
-					<h2 class="text-2xl font-semibold text-white">Frequently Asked Questions</h2>
-				</header>
-				<div class="space-y-4">
-					{faqs.map(({ question, answer }) => (
-						<details class="group rounded-xl border border-slate-800 bg-slate-900 p-4">
-							<summary class="flex cursor-pointer list-none items-center justify-between">
-								<h3 class="text-lg font-medium text-white">{question}</h3>
-								<span class="text-slate-400 transition group-open:rotate-180">▼</span>
-							</summary>
-							<p class="mt-4 text-slate-400">{answer}</p>
-						</details>
-					))}
-				</div>
-			</section>
+				<p>
+					Actualmente me desempeño como
+					<strong class="font-semibold text-neutral-100">
+						Arquitecto Senior de Soluciones en Microsoft
+					</strong>,
+					asumiendo frecuentemente el rol de arquitecto líder en programas
+					empresariales complejos de Latinoamérica y Norteamérica. En este rol,
+					defino la dirección arquitectónica y coordino grupos de arquitectos,
+					consultores y especialistas, alineando su trabajo entre distintos
+					dominios técnicos y frentes de implementación.
+				</p>
 
-		</main>
-		<Footer />
-	</body>
+				<p>
+					Mi trabajo incluye modernización de nube, integraciones orientadas a
+					eventos de alto rendimiento, migraciones de sistemas críticos,
+					plataformas distribuidas y la transformación de estrategias de negocio
+					en arquitecturas preparadas para producción. Además de definir las
+					soluciones, ayudo a los equipos a evaluar decisiones técnicas,
+					administrar riesgos arquitectónicos y mantener una dirección coherente
+					desde el diseño inicial hasta la implementación.
+				</p>
+
+				<p>
+					Creo que los arquitectos necesitan experimentar continuamente para
+					mantenerse conectados con la realidad de la tecnología y su
+					implementación. Mantengo esa conexión explorando formas de trabajo
+					asistidas por inteligencia artificial, evaluando plataformas
+					distribuidas, construyendo prototipos y probando nuevos enfoques de
+					desarrollo.
+				</p>
+			</div>
+            </section>
+
+            <!-- Spanish Personal -->
+            <section
+                aria-labelledby="spanish-personal-title"
+                lang="es"
+                class="max-w-4xl pt-14"
+            >
+                <h2
+                    id="spanish-personal-title"
+                    class="text-2xl font-semibold tracking-tight text-white"
+                >
+                    Fuera de la Tecnología
+                </h2>
+
+                <p class="mt-5 leading-relaxed text-neutral-400">
+                    Soy el orgulloso papá de Mateo y Sofia. Cuando estoy lejos
+                    de los diagramas de arquitectura y el código, normalmente
+                    me encontrarás corriendo por la montaña, detrás de una
+                    cámara practicando fotografía o siguiendo el fútbol, el
+                    rugby y la Fórmula 1.
+                </p>
+            </section>
+
+            <!-- FAQ -->
+            <section
+                aria-labelledby="faq-title"
+                class="max-w-4xl py-16"
+            >
+                <header class="mb-8">
+                    <h2
+                        id="faq-title"
+                        class="text-2xl font-semibold tracking-tight text-white"
+                    >
+                        Frequently Asked Questions
+                    </h2>
+                </header>
+
+                <div class="space-y-4">
+                    {
+                        faqs.map(({ question, answer }) => (
+                            <details class="group rounded-xl border border-neutral-800 bg-neutral-950/80 p-5 transition-colors open:border-neutral-700">
+                                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                                    <h3 class="text-base font-medium text-neutral-100 sm:text-lg">
+                                        {question}
+                                    </h3>
+
+                                    <span
+                                        aria-hidden="true"
+                                        class="shrink-0 text-sm text-neutral-500 transition-transform duration-200 group-open:rotate-180"
+                                    >
+                                        ▼
+                                    </span>
+                                </summary>
+
+                                <p class="mt-4 max-w-3xl leading-relaxed text-neutral-400">
+                                    {answer}
+                                </p>
+                            </details>
+                        ))
+                    }
+                </div>
+            </section>
+        </main>
+
+        <Footer />
+    </body>
 </html>

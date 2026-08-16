@@ -1,141 +1,335 @@
 ---
+import { getCollection } from 'astro:content';
+
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const allPosts = (await getCollection('blog'))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const MAX_RECENT_POSTS = 4;
+const MAX_VISIBLE_TAGS = 15;
 
-const posts = allPosts.slice(0, 4);
+// Get and sort all blog posts
+const allPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 
-// Collect all tags with counts
-const allTags = new Map<string, number>();
-allPosts.forEach((post) => {
-	post.data.tags?.forEach((tag) => {
-		allTags.set(tag, (allTags.get(tag) || 0) + 1);
-	});
-});
-const sortedTags = [...allTags.entries()].sort((a, b) => b[1] - a[1]);
+const recentPosts = allPosts.slice(0, MAX_RECENT_POSTS);
 
-// Collect years with counts
+// Collect tags and their usage counts
+const tagCounts = new Map<string, number>();
+
+for (const post of allPosts) {
+    for (const tag of post.data.tags ?? []) {
+        const normalizedTag = tag.trim();
+
+        if (!normalizedTag) continue;
+
+        tagCounts.set(
+            normalizedTag,
+            (tagCounts.get(normalizedTag) ?? 0) + 1
+        );
+    }
+}
+
+const sortedTags = [...tagCounts.entries()].sort(
+    ([tagA, countA], [tagB, countB]) =>
+        countB - countA || tagA.localeCompare(tagB)
+);
+
+const visibleTags = sortedTags.slice(0, MAX_VISIBLE_TAGS);
+const remainingTags = sortedTags.slice(MAX_VISIBLE_TAGS);
+
+// Collect publication years and counts
 const yearCounts = new Map<number, number>();
-allPosts.forEach((post) => {
-	const year = post.data.pubDate.getFullYear();
-	yearCounts.set(year, (yearCounts.get(year) || 0) + 1);
-});
-const sortedYears = [...yearCounts.entries()].sort((a, b) => b[0] - a[0]);
+
+for (const post of allPosts) {
+    const year = post.data.pubDate.getFullYear();
+
+    yearCounts.set(year, (yearCounts.get(year) ?? 0) + 1);
+}
+
+const sortedYears = [...yearCounts.entries()].sort(
+    ([yearA], [yearB]) => yearB - yearA
+);
+
+// URL helpers
+const getPostUrl = (postId: string) => `/blog/${postId}/`;
+
+const getTagUrl = (tag: string) =>
+    `/blog/tag/${encodeURIComponent(tag)}/`;
+
+const getYearUrl = (year: number) =>
+    `/blog/year/${year}/`;
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<Header />
-		<main role="main" class="max-w-6xl mx-auto">
-			<!-- Hero Section -->
-			<section class="flex flex-col items-start py-16 max-xl:px-4 max-lg:px-4 max-sm:px-4 max-sm:items-center max-sm:text-center">
-				<h1 class="text-4xl font-bold tracking-tight text-zinc-300 max-sm:text-2xl">
-					Hi, I'm <span class="text-blue-500">Martin Jalaf</span> 👋
-				</h1>
-				<p class="mt-6 text-lg text-zinc-400 max-w-2xl max-sm:mt-3 max-sm:text-base">
-					Solution Architect in Industry Solution Delivery (ISD), with 20+ years in technology.
-I help organizations navigate architectural complexity, reduce risk in large programs, and align cloud strategy with real business outcomes.
-Working across the Americas, supporting both U.S. and LATAM enterprise customers.
-				</p>
-				<div class="flex flex-row mt-6 gap-4 max-sm:justify-center">
-					<a
-						href="/blog"
-						class="flex flex-row w-fit rounded-lg border px-5 py-2 transition-colors duration-300 hover:bg-blue-500 hover:text-white border-blue-500 text-blue-500 no-underline max-sm:px-3 max-sm:text-sm"
-					>
-						View Blog
-					</a>
-					<a
-						href="/about"
-						class="flex flex-row w-fit rounded-lg border px-5 py-2 transition-colors duration-300 hover:bg-blue-500 hover:text-white border-blue-500 text-blue-500 no-underline max-sm:px-3 max-sm:text-sm"
-					>
-						About Me
-					</a>
-				</div>
-			</section>
+<html lang="en" class="bg-black">
+    <head>
+        <BaseHead
+            title={SITE_TITLE}
+            description={SITE_DESCRIPTION}
+        />
+    </head>
 
-			<!-- Browse by Tag & Year -->
-			<section class="max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4 pb-10">
-				<div class="grid gap-8 sm:grid-cols-2">
-					<!-- Tags -->
-					<div>
-						<h3 class="text-lg font-semibold text-zinc-300 mb-4">Browse by Tag</h3>
-						<div class="flex flex-wrap gap-2">
-							{sortedTags.map(([tag, count]) => (
-								<a
-									href={`/blog/tag/${tag}/`}
-									class="rounded-full bg-zinc-800 px-3 py-1 text-sm text-zinc-300 no-underline hover:bg-zinc-700 transition"
-								>
-									#{tag} <span class="text-zinc-500">({count})</span>
-								</a>
-							))}
-						</div>
-					</div>
-					<!-- Years -->
-					<div>
-						<h3 class="text-lg font-semibold text-zinc-300 mb-4">Browse by Year</h3>
-						<div class="flex flex-wrap gap-2">
-							{sortedYears.map(([year, count]) => (
-								<a
-									href={`/blog/year/${year}/`}
-									class="rounded-full bg-zinc-800 px-4 py-1 text-sm text-zinc-300 no-underline hover:bg-zinc-700 transition"
-								>
-									{year} <span class="text-zinc-500">({count})</span>
-								</a>
-							))}
-						</div>
-					</div>
-				</div>
-			</section>
+    <body
+        class="min-h-screen bg-black text-neutral-100 antialiased selection:bg-blue-600 selection:text-white"
+    >
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-M4LH8GS"
+                height="0"
+                width="0"
+                title="Google Tag Manager"
+                style="display:none;visibility:hidden"
+            ></iframe>
+        </noscript>
 
-			<!-- Recent Posts -->
-			<section class="max-2xl:px-0 max-xl:px-4 max-lg:px-4 max-sm:px-4 pb-16">
-				<div class="flex justify-between items-center mb-6">
-					<h3 class="text-2xl font-normal text-gray-300">Most recent articles</h3>
-					<a href="/blog" class="text-xl text-blue-500 no-underline hover:underline">View all &rarr;</a>
-				</div>
-				<div class="mx-auto max-w-full py-5 grid gap-6 sm:grid-cols-2">
-					{
-						posts.map((post) => (
-							<article class="group relative w-full rounded-2xl bg-zinc-900/60 p-6 transition hover:bg-zinc-900/80 hover:shadow-xl hover:shadow-black/30">
-								<a href={`/blog/${post.id}/`} class="absolute inset-0 z-10 rounded-2xl" aria-label={post.data.title}></a>
-								<div class="relative z-20 pointer-events-none">
-									<div class="mb-3 flex items-center gap-3 text-sm text-zinc-400">
-										<FormattedDate date={post.data.pubDate} />
-										{post.data.tags && post.data.tags.length > 0 && (
-											<span class="flex gap-2 pointer-events-auto">
-												{post.data.tags.slice(0, 2).map((tag) => (
-													<a href={`/blog/tag/${tag}/`} class="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300 no-underline hover:bg-zinc-700 transition">#{tag}</a>
-												))}
-											</span>
-										)}
-									</div>
-									<h2 class="text-xl font-semibold leading-snug text-zinc-100 transition group-hover:text-violet-400">
-										{post.data.title}
-									</h2>
-									{post.data.description && (
-										<p class="mt-3 text-sm leading-relaxed text-zinc-400">
-											{post.data.description.slice(0, 100)}{post.data.description.length > 100 ? "..." : ""}
-										</p>
-									)}
-								</div>
-							</article>
-						))
-					}
-				</div>
-			</section>
-		</main>
-		<Footer />
-	</body>
+        <Header />
+
+        <main class="mx-auto max-w-6xl space-y-14 px-4 py-12">
+            <!-- Hero -->
+            <section
+                aria-labelledby="hero-title"
+                class="flex flex-col items-start py-6 max-sm:items-center max-sm:text-center"
+            >
+                <h1
+                    id="hero-title"
+                    class="text-4xl font-bold tracking-tight text-white max-sm:text-3xl"
+                >
+                    Hi, I'm
+                    <span class="text-blue-500">Martin Jalaf</span>
+                    👋
+                </h1>
+
+                <p
+                    class="mt-4 max-w-2xl text-lg leading-relaxed text-neutral-400 max-sm:text-base"
+                >
+                    Lead Solution Architect with 20+ years of experience in
+                    technology. I help organizations navigate architectural
+                    complexity, reduce risk in large programs, and align cloud
+                    strategy with real business outcomes. I work across the
+                    Americas, supporting enterprise customers in the U.S. and
+                    Latin America.
+                </p>
+
+                <div class="mt-6 flex flex-wrap gap-4">
+                    <a
+                        href="/blog"
+                        class="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                    >
+                        View Blog
+                    </a>
+
+                    <a
+                        href="/about"
+                        class="rounded-lg border border-neutral-800 bg-neutral-950 px-5 py-2 text-sm font-medium text-neutral-300 no-underline transition-colors duration-200 hover:border-neutral-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                    >
+                        About Me
+                    </a>
+                </div>
+            </section>
+
+            <hr class="border-neutral-900" />
+
+            <!-- Recent Articles -->
+            <section aria-labelledby="recent-articles-title">
+                <div class="mb-6 flex items-center justify-between gap-4">
+                    <h2
+                        id="recent-articles-title"
+                        class="text-2xl font-semibold tracking-tight text-white"
+                    >
+                        Recent Articles
+                    </h2>
+
+                    <a
+                        href="/blog"
+                        class="shrink-0 text-sm font-medium text-blue-400 no-underline transition-colors hover:text-blue-300 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                    >
+                        View all
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+
+                {
+                    recentPosts.length > 0 ? (
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            {recentPosts.map((post) => (
+                                <article class="group relative rounded-2xl border border-neutral-900 bg-neutral-950/80 p-6 transition-all duration-200 hover:border-neutral-800 hover:bg-neutral-900/50 focus-within:border-blue-500/70 focus-within:ring-2 focus-within:ring-blue-500/30">
+                                    <a
+                                        href={getPostUrl(post.id)}
+                                        class="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none"
+                                        aria-label={`Read article: ${post.data.title}`}
+                                    />
+
+                                    <div class="pointer-events-none relative z-20 space-y-3">
+                                        <div class="flex flex-wrap items-center gap-3 text-xs text-neutral-500">
+                                            <FormattedDate
+                                                date={post.data.pubDate}
+                                            />
+
+                                            {post.data.tags &&
+                                                post.data.tags.length > 0 && (
+                                                    <div
+                                                        class="pointer-events-auto relative z-30 flex flex-wrap gap-2"
+                                                        aria-label="Article tags"
+                                                    >
+                                                        {post.data.tags
+                                                            .slice(0, 2)
+                                                            .map((tag) => (
+                                                                <a
+                                                                    href={getTagUrl(tag)}
+                                                                    class="rounded-full border border-neutral-800 bg-neutral-900 px-2.5 py-0.5 text-xs text-neutral-400 no-underline transition-colors hover:border-neutral-700 hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                                                                >
+                                                                    #{tag}
+                                                                </a>
+                                                            ))}
+                                                    </div>
+                                                )}
+                                        </div>
+
+                                        <h3 class="text-lg font-semibold leading-snug text-neutral-100 transition-colors group-hover:text-blue-400">
+                                            {post.data.title}
+                                        </h3>
+
+                                        {post.data.description && (
+                                            <p class="line-clamp-3 text-sm leading-relaxed text-neutral-400">
+                                                {post.data.description}
+                                            </p>
+                                        )}
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    ) : (
+                        <div class="rounded-2xl border border-neutral-900 bg-neutral-950 p-6">
+                            <p class="text-sm text-neutral-400">
+                                No articles have been published yet.
+                            </p>
+                        </div>
+                    )
+                }
+            </section>
+
+            <hr class="border-neutral-900" />
+
+            <!-- Browse Articles -->
+            <section
+                aria-labelledby="browse-articles-title"
+                class="pb-8"
+            >
+                <h2 id="browse-articles-title" class="sr-only">
+                    Browse Articles
+                </h2>
+
+                <div class="grid gap-10 sm:grid-cols-2">
+                    <!-- Browse by Tag -->
+                    <nav aria-labelledby="browse-by-tag-title">
+                        <h3
+                            id="browse-by-tag-title"
+                            class="mb-4 text-base font-semibold text-neutral-200"
+                        >
+                            Browse by Tag
+                        </h3>
+
+                        {
+                            visibleTags.length > 0 ? (
+                                <>
+                                    <ul class="flex flex-wrap gap-2">
+                                        {visibleTags.map(([tag, count]) => (
+                                            <li>
+                                                <a
+                                                    href={getTagUrl(tag)}
+                                                    class="inline-flex rounded-full border border-neutral-900 bg-neutral-950 px-3 py-1 text-xs text-neutral-400 no-underline transition-colors hover:border-neutral-700 hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                                                >
+                                                    #{tag}
+
+                                                    <span class="ml-1 text-neutral-600">
+                                                        ({count})
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    {remainingTags.length > 0 && (
+                                        <details class="mt-4">
+                                            <summary class="cursor-pointer text-sm font-medium text-blue-400 transition-colors hover:text-blue-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                                                View all tags
+                                            </summary>
+
+                                            <ul class="mt-4 flex flex-wrap gap-2">
+                                                {remainingTags.map(
+                                                    ([tag, count]) => (
+                                                        <li>
+                                                            <a
+                                                                href={getTagUrl(
+                                                                    tag
+                                                                )}
+                                                                class="inline-flex rounded-full border border-neutral-900 bg-neutral-950 px-3 py-1 text-xs text-neutral-400 no-underline transition-colors hover:border-neutral-700 hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                                                            >
+                                                                #{tag}
+
+                                                                <span class="ml-1 text-neutral-600">
+                                                                    ({count})
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        </details>
+                                    )}
+                                </>
+                            ) : (
+                                <p class="text-sm text-neutral-500">
+                                    No tags are available yet.
+                                </p>
+                            )
+                        }
+                    </nav>
+
+                    <!-- Browse by Year -->
+                    <nav aria-labelledby="browse-by-year-title">
+                        <h3
+                            id="browse-by-year-title"
+                            class="mb-4 text-base font-semibold text-neutral-200"
+                        >
+                            Browse by Year
+                        </h3>
+
+                        {
+                            sortedYears.length > 0 ? (
+                                <ul class="flex flex-wrap gap-2">
+                                    {sortedYears.map(([year, count]) => (
+                                        <li>
+                                            <a
+                                                href={getYearUrl(year)}
+                                                class="inline-flex rounded-full border border-neutral-900 bg-neutral-950 px-3.5 py-1 text-xs text-neutral-400 no-underline transition-colors hover:border-neutral-700 hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                                            >
+                                                {year}
+
+                                                <span class="ml-1 text-neutral-600">
+                                                    ({count})
+                                                </span>
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p class="text-sm text-neutral-500">
+                                    No publication years are available yet.
+                                </p>
+                            )
+                        }
+                    </nav>
+                </div>
+            </section>
+        </main>
+
+        <Footer />
+    </body>
 </html>
